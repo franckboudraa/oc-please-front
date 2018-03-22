@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  Container,
-  Form,
-  Grid,
-  Header,
-  Segment,
-  Statistic
-} from 'semantic-ui-react';
+import { Container, Grid, Header, Segment, Statistic } from 'semantic-ui-react';
 import RegisterForm from './User/RegisterForm';
 
 class Homepage extends Component {

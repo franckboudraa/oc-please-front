@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Form, Header } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Form, Header, Message } from 'semantic-ui-react';
+
+import { submitRegisterForm } from '../../actions';
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -14,19 +17,29 @@ class RegisterForm extends Component {
 
   handleSubmit = () => {
     const { email, password } = this.state;
-    console.log(email + ' - ' + password);
-
+    const form = {
+      email,
+      password
+    };
+    this.props.submitRegisterForm(form);
     //this.setState({ submittedName: name, submittedEmail: email })
   };
 
   render() {
     const { email, password } = this.state;
+    const { loading, error, message, success } = this.props.register;
     return (
       <div>
         <Header as="h1" color="grey" className="josefin">
           Register now for free!
         </Header>
-        <Form onSubmit={this.handleSubmit} size="large">
+        <Form
+          onSubmit={this.handleSubmit}
+          loading={loading}
+          success={success}
+          error={error}
+          size="large"
+        >
           <Form.Input
             icon="user"
             iconPosition="left"
@@ -35,6 +48,7 @@ class RegisterForm extends Component {
             value={email}
             onChange={this.handleChange}
             type="email"
+            disabled={success}
             required
           />
           <Form.Input
@@ -45,16 +59,22 @@ class RegisterForm extends Component {
             required
             name="password"
             value={password}
+            disabled={success}
             onChange={this.handleChange}
           />
-
-          <Button color="green" fluid size="large">
+          <Message success header="Welcome!" content={message} />
+          <Message error header="Oops!" content={message} />
+          <Form.Button disabled={success} color="green" fluid size="large">
             Register
-          </Button>
+          </Form.Button>
         </Form>
       </div>
     );
   }
 }
 
-export default RegisterForm;
+function mapStateToProps({ register }) {
+  return { register };
+}
+
+export default connect(mapStateToProps, { submitRegisterForm })(RegisterForm);
