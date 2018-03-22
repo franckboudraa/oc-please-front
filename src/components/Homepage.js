@@ -26,7 +26,7 @@ class Homepage extends Component {
         <Grid stackable>
           <Grid.Row centered>
             <Grid.Column width={8}>
-                <RegisterForm />
+              <RegisterForm />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row centered stretched only="tablet computer" className="mt-5">

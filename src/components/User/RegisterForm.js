@@ -44,8 +44,28 @@ class RegisterForm extends Component {
           size="large"
           className="attached fluid segment"
         >
+          <Form.Group widths="equal">
+            <Form.Input
+              name="first_name"
+              placeholder="First name"
+              icon="user"
+              iconPosition="left"
+              minLength={2}
+              maxLength={20}
+              required
+            />
+            <Form.Input
+              name="last_name"
+              placeholder="Last name"
+              icon="user"
+              iconPosition="left"
+              minLength={2}
+              maxLength={20}
+              required
+            />
+          </Form.Group>
           <Form.Input
-            icon="user"
+            icon="at"
             iconPosition="left"
             placeholder="Your email address"
             name="email"
@@ -62,6 +82,8 @@ class RegisterForm extends Component {
             type="password"
             required
             name="password"
+            minLength={6}
+            maxLength={50}
             value={password}
             disabled={success}
             onChange={this.handleChange}

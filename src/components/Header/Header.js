@@ -4,14 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <Menu
-      borderless
-      color="green"
-      stackable
-      className="transparent "
-      inverted
-      attached
-    >
+    <Menu borderless color="green" className="transparent " inverted attached>
       <Container>
         <Menu.Item>
           <NavLink to="/" className="josefin brand">
