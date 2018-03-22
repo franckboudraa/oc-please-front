@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Header, Message } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import { Form, Header, Icon, Message } from 'semantic-ui-react';
 
 import { submitRegisterForm } from '../../actions';
 
@@ -29,16 +30,19 @@ class RegisterForm extends Component {
     const { email, password } = this.state;
     const { loading, error, message, success } = this.props.register;
     return (
-      <div>
-        <Header as="h1" color="grey" className="josefin">
-          Register now for free!
-        </Header>
+      <div className="mt-5">
+        <Message
+          attached
+          header="Welcome on Please!"
+          content="Fill out the form below to register (it's free!)"
+        />
         <Form
           onSubmit={this.handleSubmit}
           loading={loading}
           success={success}
           error={error}
           size="large"
+          className="attached fluid segment"
         >
           <Form.Input
             icon="user"
@@ -68,6 +72,12 @@ class RegisterForm extends Component {
             Register
           </Form.Button>
         </Form>
+        <Message attached="bottom" size="tiny" warning>
+          <Link to="/login">Already have an account?</Link>
+          <span style={{ float: 'right' }}>
+            <Link to="/password">Password lost?</Link>
+          </span>
+        </Message>
       </div>
     );
   }

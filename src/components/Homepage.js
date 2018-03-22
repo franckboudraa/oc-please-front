@@ -20,15 +20,13 @@ class Homepage extends Component {
   render() {
     return (
       <Container textAlign="center">
-        <Header as="h1" className="josefin homepage-jumbotron mt-5">
+        <Header as="h1" className="josefin homepage-jumbotron my-5 light-blur">
           Become the hero of your neighborhood.
         </Header>
         <Grid stackable>
           <Grid.Row centered>
             <Grid.Column width={8}>
-              <Segment className="mt-5">
                 <RegisterForm />
-              </Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row centered stretched only="tablet computer" className="mt-5">
