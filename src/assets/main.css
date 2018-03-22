@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
+.josefin {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.brand {
+  text-shadow: #484848 1px 1px 1px;
+  font-size: 2rem;
+}
+
+.light-blur {
+  text-shadow: #000 0px 0px 1px;
+}
+
+.transparent {
+  background-color: unset;
+}
+
+.white > .inverted.transparent > input,
+.white > .inverted.transparent > input:focus,
+.white > .inverted.transparent > input:hover {
+  color: #fff !important;
+}
+
+.homepage-jumbotron {
+  font-size: 4rem !important;
+  color: #fff !important;
+  /*text-shadow: black 1px 1px 10px !important;*/
+  text-shadow: #484848 2px 2px 0px;
+}
