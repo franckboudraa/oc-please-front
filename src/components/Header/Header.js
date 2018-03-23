@@ -1,15 +1,14 @@
 import React from 'react';
 import { Container, Form, Menu } from 'semantic-ui-react';
-import { NavLink } from 'react-router-dom';
 
 const Header = () => {
   return (
     <Menu borderless color="green" className="transparent " inverted attached>
       <Container>
         <Menu.Item>
-          <NavLink to="/" className="josefin brand">
+          <a href="/" className="josefin brand">
             Please
-          </NavLink>
+          </a>
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item className="p-0 mx-0 mb-0 mt-3">

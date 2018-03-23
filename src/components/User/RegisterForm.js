@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Form, Header, Icon, Message } from 'semantic-ui-react';
+import { Form, Message } from 'semantic-ui-react';
 
 import { submitRegisterForm } from '../../actions';
 
@@ -9,27 +9,28 @@ class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      form: {
+        email: '',
+        password: '',
+        first_name: '',
+        last_name: ''
+      }
     };
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+  handleChange = (e, { name, value }) =>
+    this.setState({ form: { ...this.state.form, [name]: value } });
 
   handleSubmit = () => {
-    const { email, password } = this.state;
-    const form = {
-      email,
-      password
-    };
+    const { form } = this.state;
     this.props.submitRegisterForm(form);
     //this.setState({ submittedName: name, submittedEmail: email })
   };
 
   render() {
-    const { email, password } = this.state;
+    const { form } = this.state;
     const { loading, error, message, success } = this.props.register;
-    return (
+    return !success ? (
       <div className="mt-5">
         <Message
           attached
@@ -52,6 +53,8 @@ class RegisterForm extends Component {
               iconPosition="left"
               minLength={2}
               maxLength={20}
+              value={form.first_name}
+              onChange={this.handleChange}
               required
             />
             <Form.Input
@@ -61,6 +64,8 @@ class RegisterForm extends Component {
               iconPosition="left"
               minLength={2}
               maxLength={20}
+              value={form.last_name}
+              onChange={this.handleChange}
               required
             />
           </Form.Group>
@@ -69,7 +74,7 @@ class RegisterForm extends Component {
             iconPosition="left"
             placeholder="Your email address"
             name="email"
-            value={email}
+            value={form.email}
             onChange={this.handleChange}
             type="email"
             disabled={success}
@@ -84,11 +89,10 @@ class RegisterForm extends Component {
             name="password"
             minLength={6}
             maxLength={50}
-            value={password}
+            value={form.password}
             disabled={success}
             onChange={this.handleChange}
           />
-          <Message success header="Welcome!" content={message} />
           <Message error header="Oops!" content={message} />
           <Form.Button disabled={success} color="green" fluid size="large">
             Register
@@ -101,6 +105,8 @@ class RegisterForm extends Component {
           </span>
         </Message>
       </div>
+    ) : (
+      <Message success header="Welcome!" content={message} />
     );
   }
 }
