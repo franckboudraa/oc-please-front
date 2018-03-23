@@ -6,11 +6,7 @@ import NavbarUser from './NavbarUser';
 
 class Header extends Component {
   render() {
-    return this.props.auth.token || this.props.auth.user ? (
-      <NavbarUser />
-    ) : (
-      <NavbarGuest />
-    );
+    return this.props.auth.user ? <NavbarUser /> : <NavbarGuest />;
   }
 }
 

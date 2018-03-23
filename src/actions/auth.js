@@ -47,7 +47,7 @@ export const login = form => async dispatch => {
       dispatch({ type: AUTH_SET_TOKEN, auth_token }) &&
       dispatch(checkAuthFromToken(auth_token));
   } catch (err) {
-    console.log(err);
+    dispatch({ type: AUTH_ERROR });
   }
 };
 

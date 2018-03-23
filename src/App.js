@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { getTokenFromLSThenAuthenticate } from './actions';
 
 import Header from './components/Header/Header';
 import Homepage from './components/Homepage';
 import Footer from './components/Footer/Footer';
 import Dashboard from './components/Dashboard/Dashboard';
+import NotFound from './components/NotFound';
 
 class App extends Component {
   componentDidMount() {
@@ -18,15 +19,14 @@ class App extends Component {
       <Router>
         <div>
           <Header />
-          <Route
-            exact
-            path="/"
-            component={
-              this.props.auth.token || this.props.auth.user
-                ? Dashboard
-                : Homepage
-            }
-          />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={this.props.auth.user ? Dashboard : Homepage}
+            />
+            <Route component={NotFound} />
+          </Switch>
           <Footer />
         </div>
       </Router>

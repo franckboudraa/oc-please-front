@@ -23,7 +23,7 @@ class NavbarGuest extends PureComponent {
   };
   render() {
     const { form: { email, password } } = this.state;
-    //const { loading, error, message, success } = this.props.register;
+    const { loading, error } = this.props.auth;
     return (
       <Menu borderless color="green" className="transparent " inverted attached>
         <Container>
@@ -34,9 +34,14 @@ class NavbarGuest extends PureComponent {
           </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item className="p-0 mx-0 mb-0 mt-3">
-              <Form onSubmit={this.handleSubmit}>
+              <Form
+                loading={loading}
+                error={error}
+                onSubmit={this.handleSubmit}
+              >
                 <Form.Group widths="equal" inline>
                   <Form.Input
+                    error={error}
                     icon="at"
                     iconPosition="left"
                     placeholder="Email"
@@ -50,6 +55,7 @@ class NavbarGuest extends PureComponent {
                     onChange={this.handleChange}
                   />
                   <Form.Input
+                    error={error}
                     icon="lock"
                     iconPosition="left"
                     placeholder="Password"
@@ -75,4 +81,8 @@ class NavbarGuest extends PureComponent {
   }
 }
 
-export default connect(null, { login })(NavbarGuest);
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps, { login })(NavbarGuest);
