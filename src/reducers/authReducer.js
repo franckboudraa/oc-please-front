@@ -1,37 +1,49 @@
 import {
-  REGISTER_ERROR,
-  REGISTER_LOADING,
-  REGISTER_SUCCESS
+  AUTH_ERROR,
+  AUTH_LOADING,
+  AUTH_SUCCESS,
+  AUTH_SET_TOKEN
 } from '../actions/types';
 
-export default function registerReducer(
-  state = { success: false, loading: false, error: false, message: '' },
+export default function authReducer(
+  state = {
+    success: false,
+    loading: false,
+    error: false,
+    token: null,
+    user: null
+  },
   action
 ) {
   switch (action.type) {
-    case REGISTER_ERROR:
+    case AUTH_ERROR:
       return {
         ...state,
         loading: false,
         error: true,
         success: false,
-        message: 'Error!'
+        user: null
       };
-    case REGISTER_LOADING:
+    case AUTH_LOADING:
       return {
         ...state,
         loading: true,
         error: false,
         success: false,
-        message: ''
+        user: null
       };
-    case REGISTER_SUCCESS:
+    case AUTH_SUCCESS:
       return {
         ...state,
         loading: false,
         error: false,
         success: true,
-        message: 'Your account has been created!'
+        user: action.user
+      };
+    case AUTH_SET_TOKEN:
+      return {
+        ...state,
+        token: action.token
       };
     default:
       return state;

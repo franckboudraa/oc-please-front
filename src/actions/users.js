@@ -1,17 +1,20 @@
 import axios from 'axios';
 import { REGISTER_ERROR, REGISTER_LOADING, REGISTER_SUCCESS } from './types';
+import { setAuthToken } from './auth';
 
-const API_URL = process.env.REACT_APP_API_URL;
+var x = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  timeout: 10000
+});
 
 export const submitRegisterForm = form => async dispatch => {
   dispatch({ type: REGISTER_LOADING });
   try {
-    const req = await axios.post(`${API_URL}/users`, form);
-    dispatch({
-      type: REGISTER_SUCCESS,
-      message: 'Welcome on Please! You can login now.'
-    });
+    const req = await x.post('/users', form);
+    req.status === 200 &&
+      dispatch(setAuthToken(req.data.token)) &&
+      dispatch({ type: REGISTER_SUCCESS });
   } catch (err) {
-    dispatch({ type: REGISTER_ERROR, message: 'Error message!' });
+    dispatch({ type: REGISTER_ERROR });
   }
 };

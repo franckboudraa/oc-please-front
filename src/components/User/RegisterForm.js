@@ -24,7 +24,6 @@ class RegisterForm extends Component {
   handleSubmit = () => {
     const { form } = this.state;
     this.props.submitRegisterForm(form);
-    //this.setState({ submittedName: name, submittedEmail: email })
   };
 
   render() {
