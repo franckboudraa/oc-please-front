@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { REGISTER_ERROR, REGISTER_LOADING, REGISTER_SUCCESS } from './types';
-import { setAuthToken } from './auth';
+import { setAuthTokenToLS } from './auth';
 
 var x = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -12,7 +12,7 @@ export const submitRegisterForm = form => async dispatch => {
   try {
     const req = await x.post('/users', form);
     req.status === 200 &&
-      dispatch(setAuthToken(req.data.token)) &&
+      dispatch(setAuthTokenToLS(req.data.token)) &&
       dispatch({ type: REGISTER_SUCCESS });
   } catch (err) {
     dispatch({ type: REGISTER_ERROR });

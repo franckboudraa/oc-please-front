@@ -2,7 +2,8 @@ import {
   AUTH_ERROR,
   AUTH_LOADING,
   AUTH_SUCCESS,
-  AUTH_SET_TOKEN
+  AUTH_SET_TOKEN,
+  AUTH_FLUSH
 } from '../actions/types';
 
 export default function authReducer(
@@ -44,6 +45,15 @@ export default function authReducer(
       return {
         ...state,
         token: action.token
+      };
+    case AUTH_FLUSH:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        success: false,
+        token: null,
+        user: null
       };
     default:
       return state;

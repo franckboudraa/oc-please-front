@@ -3,7 +3,8 @@ import {
   AUTH_ERROR,
   AUTH_LOADING,
   AUTH_SUCCESS,
-  AUTH_SET_TOKEN
+  AUTH_SET_TOKEN,
+  AUTH_FLUSH
 } from './types';
 
 var x = axios.create({
@@ -11,12 +12,11 @@ var x = axios.create({
   timeout: 10000
 });
 
-export const checkAuthFromToken = token => async (dispatch, getState) => {
-  const { auth } = await getState();
+export const checkAuthFromToken = token => async dispatch => {
   dispatch({ type: AUTH_LOADING });
   try {
     const { data } = await x('users/current', {
-      headers: { Authorization: auth.token }
+      headers: { Authorization: token }
     });
     dispatch({
       type: AUTH_SUCCESS,
@@ -27,7 +27,7 @@ export const checkAuthFromToken = token => async (dispatch, getState) => {
   }
 };
 
-export const getTokenThenAuthenticate = () => async dispatch => {
+export const getTokenFromLSThenAuthenticate = () => async dispatch => {
   const token = await localStorage.getItem('token');
 
   token &&
@@ -35,6 +35,23 @@ export const getTokenThenAuthenticate = () => async dispatch => {
     dispatch(checkAuthFromToken(token));
 };
 
-export const setAuthToken = token => async dispatch => {
+export const setAuthTokenToLS = token => async dispatch => {
   localStorage.setItem('token', token);
+};
+
+export const login = form => async dispatch => {
+  try {
+    const { data: { auth_token } } = await x.post('/authenticate', form);
+    auth_token &&
+      dispatch(setAuthTokenToLS(auth_token)) &&
+      dispatch({ type: AUTH_SET_TOKEN, auth_token }) &&
+      dispatch(checkAuthFromToken(auth_token));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const logout = () => async dispatch => {
+  localStorage.removeItem('token');
+  dispatch({ type: AUTH_FLUSH });
 };
