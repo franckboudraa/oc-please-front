@@ -3,7 +3,7 @@ import { Container, Grid, Header, Segment, Statistic } from 'semantic-ui-react';
 import RegisterForm from './User/RegisterForm';
 
 class Homepage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     document.body.style.minHeight = '100%';
     document.body.style.height = '100%';
     document.body.style.background = 'url(/img/bg-home.jpg) center';
