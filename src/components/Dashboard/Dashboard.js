@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
+
+import Map from './Map';
 
 const Dashboard = () => {
-  return <Container>Dashboard</Container>;
+  return <Map />;
 };
 
 export default Dashboard;

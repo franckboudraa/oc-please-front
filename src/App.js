@@ -17,6 +17,7 @@ class App extends Component {
   }
 
   render() {
+    const { auth } = this.props;
     return (
       <Router>
         <div>
@@ -25,12 +26,12 @@ class App extends Component {
             <Route
               exact
               path="/"
-              component={this.props.auth.user ? Dashboard : Homepage}
+              component={auth.user ? Dashboard : Homepage}
             />
             <PrivateRoute
               path="/settings"
               component={UserSettings}
-              auth={this.props.auth.user}
+              auth={auth.user}
             />
             <Route component={NotFound} />
           </Switch>
@@ -41,10 +42,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    auth: state.auth
-  };
+function mapStateToProps({ auth }) {
+  return { auth };
 }
 
 export default connect(mapStateToProps, {
