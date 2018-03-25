@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 import { getUserLocation } from '../../actions';
+import { Loader } from 'semantic-ui-react';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -29,7 +30,7 @@ class Map extends Component {
         </GoogleMapReact>
       </div>
     ) : (
-      'Loading'
+      <Loader active />
     );
   }
 }

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { getTokenFromLSThenAuthenticate } from './actions';
 
+import { Loader } from 'semantic-ui-react';
+
 import PrivateRoute from './PrivateRoute';
 import Header from './components/Header/Header';
 import Homepage from './components/Homepage';
@@ -18,7 +20,9 @@ class App extends Component {
 
   render() {
     const { auth } = this.props;
-    return (
+    return auth.loading ? (
+      <Loader active />
+    ) : (
       <Router>
         <div>
           <Header />
