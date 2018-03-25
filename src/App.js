@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { getTokenFromLSThenAuthenticate } from './actions';
 
+import PrivateRoute from './PrivateRoute';
 import Header from './components/Header/Header';
 import Homepage from './components/Homepage';
 import Footer from './components/Footer/Footer';
 import Dashboard from './components/Dashboard/Dashboard';
 import NotFound from './components/NotFound';
+import UserSettings from './components/User/UserSettings';
 
 class App extends Component {
   componentDidMount() {
@@ -24,6 +26,11 @@ class App extends Component {
               exact
               path="/"
               component={this.props.auth.user ? Dashboard : Homepage}
+            />
+            <PrivateRoute
+              path="/settings"
+              component={UserSettings}
+              auth={this.props.auth.user}
             />
             <Route component={NotFound} />
           </Switch>
