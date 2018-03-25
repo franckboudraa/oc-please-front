@@ -1,4 +1,4 @@
-import axios from 'axios';
+import x from './index';
 import {
   AUTH_ERROR,
   AUTH_LOADING,
@@ -6,11 +6,6 @@ import {
   AUTH_SET_TOKEN,
   AUTH_FLUSH
 } from './types';
-
-var x = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  timeout: 10000
-});
 
 export const checkAuthFromToken = token => async dispatch => {
   dispatch({ type: AUTH_LOADING });

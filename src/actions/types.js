@@ -7,3 +7,5 @@ export const AUTH_SUCCESS = 'auth_success';
 export const AUTH_ERROR = 'auth_error';
 export const AUTH_SET_TOKEN = 'auth_set_token';
 export const AUTH_FLUSH = 'auth_flush';
+
+export const MAP_SET_LOCATION = 'map_set_location';
