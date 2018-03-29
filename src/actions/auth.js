@@ -17,7 +17,7 @@ export const checkAuthFromToken = token => async dispatch => {
       type: AUTH_SUCCESS,
       user: data
     });
-  } catch (err) {
+  } catch ({ error }) {
     dispatch({ type: AUTH_ERROR });
   }
 };
@@ -25,9 +25,12 @@ export const checkAuthFromToken = token => async dispatch => {
 export const getTokenFromLSThenAuthenticate = () => async dispatch => {
   const token = await localStorage.getItem('token');
 
-  token &&
-    dispatch({ type: AUTH_SET_TOKEN, token }) &&
+  if (token) {
+    dispatch({ type: AUTH_SET_TOKEN, token });
     dispatch(checkAuthFromToken(token));
+  } else {
+    dispatch({ type: AUTH_FLUSH });
+  }
 };
 
 export const setAuthTokenToLS = token => async dispatch => {

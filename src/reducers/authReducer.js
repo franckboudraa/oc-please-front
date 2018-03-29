@@ -9,7 +9,7 @@ import {
 export default function authReducer(
   state = {
     success: false,
-    loading: false,
+    loading: true,
     error: false,
     token: null,
     user: null
@@ -30,8 +30,7 @@ export default function authReducer(
         ...state,
         loading: true,
         error: false,
-        success: false,
-        user: null
+        success: false
       };
     case AUTH_SUCCESS:
       return {
