@@ -31,7 +31,6 @@ class UserIDUpload extends Component {
     }
   };
   render() {
-    console.log(this.props);
     return (
       <Grid centered container className="mt-5" stackable>
         <Grid.Row>
