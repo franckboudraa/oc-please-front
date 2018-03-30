@@ -15,6 +15,7 @@ import UserSettings from './components/User/UserSettings';
 import UserIDUpload from './components/User/UserIDUpload';
 
 import RequestNew from './components/Request/RequestNew';
+import RequestShow from './components/Request/RequestShow';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -52,6 +53,7 @@ class App extends PureComponent {
               component={UserSettings}
               auth={auth}
             />
+            <PrivateRoute path="/r/:id" component={RequestShow} auth={auth} />
             <PrivateRoute
               path="/requests/new"
               component={RequestNew}

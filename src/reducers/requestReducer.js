@@ -1,6 +1,6 @@
 import { REQ_ERROR, REQ_LOADING, REQ_SUCCESS } from '../actions/types';
 
-export default function authReducer(
+export default function requestReducer(
   state = {
     success: false,
     loading: false,
