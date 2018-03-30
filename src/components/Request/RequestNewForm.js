@@ -26,18 +26,24 @@ class RequestNewForm extends Component {
 
   render() {
     const { address, form } = this.state;
-    const { loading, error, success, error_message, id } = this.props.requests;
+    const {
+      loading,
+      error,
+      success,
+      error_message,
+      request
+    } = this.props.requests;
     const inputProps = {
       value: address,
       onChange: this.onAddressChange,
       placeholder: 'Location',
       required: true
     };
-    if (success && id) {
+    if (success && request.id) {
       return (
         <Redirect
           to={{
-            pathname: `/r/${id}`,
+            pathname: `/r/${request.id}`,
             state: { from: this.props.location }
           }}
         />

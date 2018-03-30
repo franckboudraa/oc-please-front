@@ -6,7 +6,7 @@ export default function requestReducer(
     loading: false,
     error: false,
     error_message: '',
-    id: null
+    request: {}
   },
   action
 ) {
@@ -26,7 +26,7 @@ export default function requestReducer(
         error: false,
         success: false,
         error_message: '',
-        id: null
+        request: null
       };
     case REQ_SUCCESS:
       return {
@@ -35,7 +35,7 @@ export default function requestReducer(
         error: false,
         success: true,
         error_message: '',
-        id: action.id
+        request: action.request
       };
     default:
       return state;

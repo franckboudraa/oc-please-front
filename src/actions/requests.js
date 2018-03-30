@@ -19,7 +19,7 @@ export const submitRequest = form => async (dispatch, getState) => {
         }
       );
       if (req.status === 200) {
-        dispatch({ type: REQ_SUCCESS, id: req.data.id });
+        dispatch({ type: REQ_SUCCESS, request: { id: req.data.id } });
       } else {
         throw new Error('http_code_error');
       }
@@ -34,6 +34,27 @@ export const submitRequest = form => async (dispatch, getState) => {
     dispatch({
       type: REQ_ERROR,
       error_message: 'Address invalid. Please enter a valid address.'
+    });
+  }
+};
+
+export const fetchRequest = id => async (dispatch, getState) => {
+  dispatch({ type: REQ_LOADING });
+  const { auth: { token } } = await getState();
+
+  try {
+    const req = await x.get(`/requests/${id}`, {
+      headers: { Authorization: token }
+    });
+    if (req.status === 200) {
+      dispatch({ type: REQ_SUCCESS, request: req.data.request });
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while retrieving request.'
     });
   }
 };
