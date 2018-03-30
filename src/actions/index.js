@@ -8,3 +8,4 @@ export default x;
 export * from './auth';
 export * from './users';
 export * from './map';
+export * from './requests';

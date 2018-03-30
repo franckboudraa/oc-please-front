@@ -14,6 +14,8 @@ import NotFound from './components/NotFound';
 import UserSettings from './components/User/UserSettings';
 import UserIDUpload from './components/User/UserIDUpload';
 
+import RequestNew from './components/Request/RequestNew';
+
 class App extends PureComponent {
   componentDidMount() {
     this.props.getTokenFromLSThenAuthenticate();
@@ -48,6 +50,11 @@ class App extends PureComponent {
             <PrivateRoute
               path="/settings"
               component={UserSettings}
+              auth={auth}
+            />
+            <PrivateRoute
+              path="/requests/new"
+              component={RequestNew}
               auth={auth}
             />
             <Route component={NotFound} />

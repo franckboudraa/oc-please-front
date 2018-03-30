@@ -9,3 +9,7 @@ export const AUTH_SET_TOKEN = 'auth_set_token';
 export const AUTH_FLUSH = 'auth_flush';
 
 export const MAP_SET_LOCATION = 'map_set_location';
+
+export const REQ_LOADING = 'req_loading';
+export const REQ_SUCCESS = 'req_success';
+export const REQ_ERROR = 'req_error';
