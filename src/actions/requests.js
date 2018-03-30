@@ -13,13 +13,13 @@ export const submitRequest = form => async (dispatch, getState) => {
     try {
       const req = await x.post(
         '/requests',
-        { form, coords },
+        { ...form, lat: coords.lat, lng: coords.lng },
         {
           headers: { Authorization: token }
         }
       );
       if (req.status === 200) {
-        dispatch({ type: REQ_SUCCESS });
+        dispatch({ type: REQ_SUCCESS, id: req.data.id });
       } else {
         throw new Error('http_code_error');
       }

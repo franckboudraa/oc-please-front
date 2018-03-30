@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PlacesAutocomplete from 'react-places-autocomplete';
+
 import { submitRequest } from '../../actions';
 import { Form, Message } from 'semantic-ui-react';
 
 const options = [
-  { key: 's', text: 'Service', value: 's' },
-  { key: 'm', text: 'Material', value: 'm' }
+  { key: 'task', text: 'Service', value: 'task' },
+  { key: 'need', text: 'Material', value: 'need' }
 ];
 
 class RequestNewForm extends Component {
@@ -24,18 +26,27 @@ class RequestNewForm extends Component {
 
   render() {
     const { address, form } = this.state;
-    const { loading, error, success, error_message } = this.props.requests;
+    const { loading, error, success, error_message, id } = this.props.requests;
     const inputProps = {
       value: address,
       onChange: this.onAddressChange,
       placeholder: 'Location',
       required: true
     };
+    if (success && id) {
+      return (
+        <Redirect
+          to={{
+            pathname: `/r/${id}`,
+            state: { from: this.props.location }
+          }}
+        />
+      );
+    }
     return (
       <Form
         loading={loading}
         error={error}
-        success={success}
         onSubmit={() => this.props.submitRequest({ address, ...form })}
       >
         <Message error>
@@ -55,9 +66,9 @@ class RequestNewForm extends Component {
           options={options}
           placeholder="Request type"
           required
-          name="type"
+          name="reqtype"
           onChange={this.handleChange}
-          value={form.type || ''}
+          value={form.reqtype || ''}
         />
         <Form.TextArea
           label="Description"

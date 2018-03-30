@@ -5,7 +5,8 @@ export default function authReducer(
     success: false,
     loading: false,
     error: false,
-    error_message: ''
+    error_message: '',
+    id: null
   },
   action
 ) {
@@ -24,7 +25,8 @@ export default function authReducer(
         loading: true,
         error: false,
         success: false,
-        error_message: ''
+        error_message: '',
+        id: null
       };
     case REQ_SUCCESS:
       return {
@@ -32,7 +34,8 @@ export default function authReducer(
         loading: false,
         error: false,
         success: true,
-        error_message: ''
+        error_message: '',
+        id: action.id
       };
     default:
       return state;
