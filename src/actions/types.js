@@ -9,6 +9,8 @@ export const AUTH_SET_TOKEN = 'auth_set_token';
 export const AUTH_FLUSH = 'auth_flush';
 
 export const MAP_SET_LOCATION = 'map_set_location';
+export const MAP_ERROR = 'map_error';
+export const MAP_SET_MARKERS = 'map_set_markers';
 
 export const REQ_LOADING = 'req_loading';
 export const REQ_SUCCESS = 'req_success';

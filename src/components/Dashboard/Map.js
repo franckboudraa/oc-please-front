@@ -1,32 +1,42 @@
-import React, { Component } from 'react';
+import React, { PureComponent, Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
-import { getUserLocation } from '../../actions';
+import { getUserLocation, getUnfulfilledRequests } from '../../actions';
 import { Loader } from 'semantic-ui-react';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+class AnyReactComponent extends PureComponent {
+  render() {
+    console.log('render2');
+    return <h1>{this.props.text}</h1>;
+  }
+}
 
 const GMAP_KEY = process.env.REACT_APP_GMAP_KEY;
 
 class Map extends Component {
   componentDidMount() {
     this.props.getUserLocation();
+    this.props.getUnfulfilledRequests();
   }
 
   render() {
-    const { map } = this.props;
-    return map.center ? (
+    const { center, zoom, error, markers } = this.props.map;
+    console.log('render!');
+    return !error && center ? (
       <div style={{ height: '95vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: GMAP_KEY }}
-          defaultCenter={map.center}
-          defaultZoom={map.zoom}
+          defaultCenter={center}
+          defaultZoom={zoom}
         >
-          <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text={'Kreyser Avrora'}
-          />
+          {markers.map(marker => (
+            <AnyReactComponent
+              lat={marker.lat}
+              lng={marker.lng}
+              text={marker.title}
+              key={marker.id}
+            />
+          ))}
         </GoogleMapReact>
       </div>
     ) : (
@@ -39,4 +49,7 @@ function mapStateToProps({ map }) {
   return { map };
 }
 
-export default connect(mapStateToProps, { getUserLocation })(Map);
+export default connect(mapStateToProps, {
+  getUserLocation,
+  getUnfulfilledRequests
+})(Map);

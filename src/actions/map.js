@@ -1,5 +1,5 @@
 import x from './index';
-import { MAP_SET_LOCATION } from './types';
+import { MAP_SET_LOCATION, MAP_ERROR, MAP_SET_MARKERS } from './types';
 
 const GMAP_KEY = process.env.REACT_APP_GMAP_KEY;
 
@@ -10,6 +10,18 @@ export const getUserLocation = () => async dispatch => {
     );
     dispatch({ type: MAP_SET_LOCATION, location });
   } catch (err) {
-    console.log(err);
+    // to do
+  }
+};
+
+export const getUnfulfilledRequests = () => async (dispatch, getState) => {
+  const { token } = await getState().auth;
+  try {
+    const req = await x('/requests', {
+      headers: { Authorization: token }
+    });
+    dispatch({ type: MAP_SET_MARKERS, markers: req.data });
+  } catch (error) {
+    dispatch({ type: MAP_ERROR });
   }
 };
