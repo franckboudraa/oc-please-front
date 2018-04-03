@@ -14,12 +14,16 @@ export const getUserLocation = () => async dispatch => {
   }
 };
 
-export const getUnfulfilledRequests = () => async (dispatch, getState) => {
+export const getUnfulfilledRequests = box => async (dispatch, getState) => {
   const { token } = await getState().auth;
   try {
-    const req = await x('/requests', {
-      headers: { Authorization: token }
-    });
+    const req = await x.post(
+      '/requests/within',
+      {
+        params: { box }
+      },
+      { headers: { Authorization: token } }
+    );
     dispatch({ type: MAP_SET_MARKERS, markers: req.data });
   } catch (error) {
     dispatch({ type: MAP_ERROR });
