@@ -4,11 +4,7 @@ import GoogleMapReact from 'google-map-react';
 import { getUserLocation, getUnfulfilledRequests } from '../../actions';
 import { Loader } from 'semantic-ui-react';
 
-class AnyReactComponent extends PureComponent {
-  render() {
-    return <h1>{this.props.text}</h1>;
-  }
-}
+import MapMarker from './MapMarker';
 
 const GMAP_KEY = process.env.REACT_APP_GMAP_KEY;
 
@@ -33,14 +29,7 @@ class Map extends PureComponent {
           defaultZoom={zoom}
           onChange={this.onBoundsChange}
         >
-          {markers.map(marker => (
-            <AnyReactComponent
-              lat={marker.lat}
-              lng={marker.lng}
-              text={marker.title}
-              key={marker.id}
-            />
-          ))}
+          {markers.map(marker => <MapMarker {...marker} key={marker.id} />)}
         </GoogleMapReact>
       </div>
     ) : (
