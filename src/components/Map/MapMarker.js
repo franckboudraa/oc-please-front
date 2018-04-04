@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { Card, Icon, Popup } from 'semantic-ui-react';
 
 const markerPosition = {
@@ -31,19 +32,22 @@ class MapMarker extends PureComponent {
             </Icon.Group>
           }
         >
-          <Card raised link>
-          <Card.Content>
-            <Card.Header>{this.props.title}</Card.Header>
-            <Card.Meta>{this.props.created_at}</Card.Meta>
+          <Card raised link to={`/r/${this.props.id}`} as={Link}>
+            <Card.Content>
+              <Card.Header>{this.props.title}</Card.Header>
+              <Card.Meta>
+                {moment(this.props.created_at).format('LLL')}
+              </Card.Meta>
             </Card.Content>
             <Card.Content>
-            
-            <Card.Description>{this.props.description}</Card.Description>
+              <Card.Description>{this.props.description}</Card.Description>
             </Card.Content>
             <Card.Content extra>
               <Icon name="user" />
-              x helpers
-              <Link to={`/r/${this.props.id}/help`} style={{float:'right'}}><Icon name="chevron right" />Help</Link>
+              {this.props.user.first_name} {this.props.user.last_name}
+              <Link to={`/r/${this.props.id}`} style={{ float: 'right' }}>
+                <Icon name="chevron right" />Help
+              </Link>
             </Card.Content>
           </Card>
         </Popup>

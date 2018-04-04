@@ -47,7 +47,7 @@ export const fetchRequest = id => async (dispatch, getState) => {
       headers: { Authorization: token }
     });
     if (req.status === 200) {
-      dispatch({ type: REQ_SUCCESS, request: req.data.request });
+      dispatch({ type: REQ_SUCCESS, request: req.data });
     } else {
       throw new Error('http_code_error');
     }
