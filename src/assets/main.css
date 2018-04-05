@@ -39,3 +39,7 @@
   text-shadow: none !important;
   font-weight: bold !important;
 }
+
+.nl2br {
+  white-space: pre-line;
+}

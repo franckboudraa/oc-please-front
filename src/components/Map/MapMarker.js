@@ -22,15 +22,15 @@ class MapMarker extends PureComponent {
           style={{ backgroundColor: 'rgb(0,0,0,0)', padding: 0, border: 0 }}
           trigger={
             <Link to={`/r/${this.props.id}`}>
-            <Icon.Group size="huge">
-              <Icon
-                name="marker"
-                color={this.props.reqtype === 'task' ? 'purple' : 'pink'}
-              />
-              <Icon corner className="marker-text">
-                {this.props.reqtype === 'task' ? 'S' : 'M'}
-              </Icon>
-            </Icon.Group>
+              <Icon.Group size="huge">
+                <Icon
+                  name="marker"
+                  color={this.props.reqtype === 'task' ? 'purple' : 'pink'}
+                />
+                <Icon corner className="marker-text">
+                  {this.props.reqtype === 'task' ? 'S' : 'M'}
+                </Icon>
+              </Icon.Group>
             </Link>
           }
         >
@@ -42,7 +42,7 @@ class MapMarker extends PureComponent {
               </Card.Meta>
             </Card.Content>
             <Card.Content>
-              <Card.Description>
+              <Card.Description className="nl2br">
                 {_.truncate(this.props.description, { length: 150 })}
               </Card.Description>
             </Card.Content>

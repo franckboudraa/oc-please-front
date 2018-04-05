@@ -14,7 +14,10 @@ class RequestNewForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: {},
+      form: {
+        title: '',
+        description: ''
+      },
       address: ''
     };
     this.onAddressChange = address => this.setState({ address });
@@ -48,12 +51,16 @@ class RequestNewForm extends Component {
           <h2>Oops!</h2> {error_message}
         </Message>
         <Form.Input
-          label="Title"
+          label={
+            form.title.length ? `Title (${form.title.length}/60)` : 'Title'
+          }
           placeholder="A short title for your request"
           required
           name="title"
           onChange={this.handleChange}
-          value={form.title || ''}
+          value={form.title}
+          minLength={10}
+          maxLength={60}
         />
         <Form.Select
           fluid
@@ -66,13 +73,19 @@ class RequestNewForm extends Component {
           value={form.reqtype || ''}
         />
         <Form.TextArea
-          label="Description"
+          label={
+            form.description.length
+              ? `Description (${form.description.length}/300)`
+              : 'Description'
+          }
           placeholder="Detailed description of your request"
           autoHeight
           required
           name="description"
           onChange={this.handleChange}
           value={form.description || ''}
+          minLength={10}
+          maxLength={300}
         />
         <div className="required field">
           <label>Location</label>
