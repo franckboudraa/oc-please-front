@@ -47,24 +47,29 @@ class RequestShow extends Component {
                     {request.title}
                     <Header.Subheader>{request.address}</Header.Subheader>
                   </Header>
-                  <Message>
-                    <Message.Header>Description</Message.Header>
-                    <p>{request.description}</p>
+                  <Message className="mt-4">
+                    <Message.Header className="josefin f1em">
+                      <p>
+                      <Link to={`/user/${request.user_id}`}>
+                        {` ${request.user.first_name} ${
+                          request.user.last_name
+                        } `}
+                      </Link>
+                      on {moment(request.created_at).format('LLL')}</p>
+                    </Message.Header>
+                    <p className="josefin nl2br f15em">{request.description}</p>
                   </Message>
                 </Grid.Column>
                 <Grid.Column width={4} textAlign="center">
                   <Button color="green" fluid>
                     Submit help
                   </Button>
-                  <p className="mt-3">
-                    Requested by
-                    <Link to={`/user/${request.user_id}`}>
-                      {` ${request.user.first_name} ${request.user.last_name}`}
-                    </Link>
-                  </p>
-                  <p>{moment(request.created_at).format('LLL')}</p>
+                  <Button className="mt-1" fluid>
+                    View helpers
+                  </Button>
+
                   <Statistic>
-                    <Statistic.Value>0</Statistic.Value>
+                    <Statistic.Value>{request.volunteers.length}</Statistic.Value>
                     <Statistic.Label>Helper</Statistic.Label>
                   </Statistic>
                 </Grid.Column>

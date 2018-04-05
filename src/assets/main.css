@@ -43,3 +43,11 @@
 .nl2br {
   white-space: pre-line;
 }
+
+.f1em{
+  font-size:1em !important;
+}
+
+.f15em {
+  font-size: 1.5em;
+}
