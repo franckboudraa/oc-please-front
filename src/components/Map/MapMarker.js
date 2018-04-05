@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { Card, Icon, Popup } from 'semantic-ui-react';
@@ -40,13 +41,15 @@ class MapMarker extends PureComponent {
               </Card.Meta>
             </Card.Content>
             <Card.Content>
-              <Card.Description>{this.props.description}</Card.Description>
+              <Card.Description>
+                {_.truncate(this.props.description, { length: 150 })}
+              </Card.Description>
             </Card.Content>
             <Card.Content extra>
               <Icon name="user" />
               {this.props.user.first_name} {this.props.user.last_name}
               <Link to={`/r/${this.props.id}`} style={{ float: 'right' }}>
-                <Icon name="chevron right" />Help
+                <Icon name="chevron right" />More...
               </Link>
             </Card.Content>
           </Card>
