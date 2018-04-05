@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
 import { submitRequest } from '../../actions';
@@ -24,36 +23,26 @@ class RequestNewForm extends Component {
   handleChange = (e, { name, value }) =>
     this.setState({ form: { ...this.state.form, [name]: value } });
 
+  submitForm = form => {
+    this.props.submitRequest(form); // redux action (send form to backend)
+    this.props.onFormSubmit(); // RequestNew local state (set submittedForm to true)
+  };
+
   render() {
     const { address, form } = this.state;
-    const {
-      loading,
-      error,
-      success,
-      error_message,
-      request
-    } = this.props.requests;
+    const { loading, error, error_message } = this.props.requests;
     const inputProps = {
       value: address,
       onChange: this.onAddressChange,
       placeholder: 'Location',
       required: true
     };
-    if (success && request.id) {
-      return (
-        <Redirect
-          to={{
-            pathname: `/r/${request.id}`,
-            state: { from: this.props.location }
-          }}
-        />
-      );
-    }
+
     return (
       <Form
         loading={loading}
         error={error}
-        onSubmit={() => this.props.submitRequest({ address, ...form })}
+        onSubmit={() => this.submitForm({ address, ...form })}
       >
         <Message error>
           <h2>Oops!</h2> {error_message}
@@ -89,7 +78,7 @@ class RequestNewForm extends Component {
           <label>Location</label>
           <PlacesAutocomplete inputProps={inputProps} />
         </div>
-        <Form.Button>Submit</Form.Button>
+        <Form.Button color="green">Submit</Form.Button>
       </Form>
     );
   }

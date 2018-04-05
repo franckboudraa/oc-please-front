@@ -15,3 +15,4 @@ export const MAP_SET_MARKERS = 'map_set_markers';
 export const REQ_LOADING = 'req_loading';
 export const REQ_SUCCESS = 'req_success';
 export const REQ_ERROR = 'req_error';
+export const REQ_FLUSH = 'req_flush';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import faker from 'faker';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { logout } from '../../actions';
 import { Button, Container, Dropdown, Image, Menu } from 'semantic-ui-react';
 
@@ -12,9 +12,9 @@ class NavbarUser extends Component {
       <Menu borderless color="green" inverted attached>
         <Container>
           <Menu.Item>
-            <NavLink to="/" className="josefin brand">
+            <Link to="/" className="josefin brand">
               Please
-            </NavLink>
+            </Link>
           </Menu.Item>
           <Menu.Item>
             <Link to="/">Pending requests</Link>

@@ -31,7 +31,7 @@ class RequestShow extends Component {
       <div>
         {loading && <Loader active />}
         {error && <Message error>{error_message}</Message>}
-        {success && (
+        {success && request.user ? (
           <div>
             <div style={{ width: '100%', height: '300px' }}>
               <StaticMap
@@ -71,6 +71,8 @@ class RequestShow extends Component {
               </Grid.Row>
             </Grid>
           </div>
+        ) : (
+          <Loader active />
         )}
       </div>
     );

@@ -1,5 +1,5 @@
 import x from './index';
-import { REQ_ERROR, REQ_LOADING, REQ_SUCCESS } from './types';
+import { REQ_ERROR, REQ_LOADING, REQ_SUCCESS, REQ_FLUSH } from './types';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 export const submitRequest = form => async (dispatch, getState) => {
@@ -57,4 +57,8 @@ export const fetchRequest = id => async (dispatch, getState) => {
       error_message: 'Error while retrieving request.'
     });
   }
+};
+
+export const flushRequests = () => async dispatch => {
+  dispatch({ type: REQ_FLUSH });
 };

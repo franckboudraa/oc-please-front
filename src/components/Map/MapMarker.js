@@ -18,10 +18,10 @@ class MapMarker extends PureComponent {
       <div style={markerPosition}>
         <Popup
           wide
-          hoverable
           position="top center"
           style={{ backgroundColor: 'rgb(0,0,0,0)', padding: 0, border: 0 }}
           trigger={
+            <Link to={`/r/${this.props.id}`}>
             <Icon.Group size="huge">
               <Icon
                 name="marker"
@@ -31,9 +31,10 @@ class MapMarker extends PureComponent {
                 {this.props.reqtype === 'task' ? 'S' : 'M'}
               </Icon>
             </Icon.Group>
+            </Link>
           }
         >
-          <Card raised link to={`/r/${this.props.id}`} as={Link}>
+          <Card raised>
             <Card.Content>
               <Card.Header>{this.props.title}</Card.Header>
               <Card.Meta>
