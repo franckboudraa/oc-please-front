@@ -53,12 +53,12 @@ class App extends PureComponent {
               component={UserSettings}
               auth={auth}
             />
-            <Route path="/r/:id" component={RequestShow} />
             <PrivateRoute
               path="/requests/new"
               component={RequestNew}
               auth={auth}
             />
+            <Route exact path="/r/:id" component={RequestShow} />
             <Route component={NotFound} />
           </Switch>
           <Footer />

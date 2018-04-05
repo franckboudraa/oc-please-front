@@ -21,11 +21,9 @@ class NavbarUser extends Component {
           </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item>
-              <NavLink to="/requests/new">
-                <Button basic inverted>
-                  Create a request
-                </Button>
-              </NavLink>
+              <Button basic inverted as={Link} to="/requests/new">
+                Create a request
+              </Button>
             </Menu.Item>
             <Dropdown
               item

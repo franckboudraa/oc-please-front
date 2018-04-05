@@ -48,9 +48,6 @@ class MapMarker extends PureComponent {
             <Card.Content extra>
               <Icon name="user" />
               {this.props.user.first_name} {this.props.user.last_name}
-              <Link to={`/r/${this.props.id}`} style={{ float: 'right' }}>
-                <Icon name="chevron right" />More...
-              </Link>
             </Card.Content>
           </Card>
         </Popup>
