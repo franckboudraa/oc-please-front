@@ -1,9 +1,4 @@
-import {
-  REQ_ERROR,
-  REQ_LOADING,
-  REQ_SUCCESS,
-  REQ_FLUSH
-} from '../actions/types';
+import { REQ_ERROR, REQ_LOADING, REQ_SUCCESS, REQ_FLUSH, REQ_USER_SUCCESS } from '../actions/types';
 
 export default function requestReducer(
   state = {
@@ -12,6 +7,7 @@ export default function requestReducer(
     error: false,
     error_message: '',
     request: {},
+    requests: [],
     flush: false
   },
   action
@@ -51,7 +47,18 @@ export default function requestReducer(
         error: false,
         error_message: '',
         request: {},
+        requests: [],
         flush: true
+      };
+    case REQ_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        success: true,
+        error_message: '',
+        requests: action.requests,
+        flush: false
       };
     default:
       return state;

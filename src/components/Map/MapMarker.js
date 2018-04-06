@@ -23,10 +23,7 @@ class MapMarker extends PureComponent {
           trigger={
             <Link to={`/r/${this.props.id}`}>
               <Icon.Group size="huge">
-                <Icon
-                  name="marker"
-                  color={this.props.reqtype === 'task' ? 'purple' : 'pink'}
-                />
+                <Icon name="marker" color={this.props.reqtype === 'task' ? 'purple' : 'pink'} />
                 <Icon corner className="marker-text">
                   {this.props.reqtype === 'task' ? 'S' : 'M'}
                 </Icon>
@@ -37,9 +34,7 @@ class MapMarker extends PureComponent {
           <Card raised>
             <Card.Content>
               <Card.Header>{this.props.title}</Card.Header>
-              <Card.Meta>
-                {moment(this.props.created_at).format('LLL')}
-              </Card.Meta>
+              <Card.Meta>{moment(this.props.created_at).format('LLL')}</Card.Meta>
             </Card.Content>
             <Card.Content>
               <Card.Description className="nl2br">
@@ -47,12 +42,8 @@ class MapMarker extends PureComponent {
               </Card.Description>
             </Card.Content>
             <Card.Content>
-              <Rating
-                icon="heart"
-                defaultRating={this.props.volunteers.length}
-                maxRating={5}
-              />{' '}
-              <span style={{float:'right'}}>{this.props.volunteers.length} helpers</span>
+              <Rating icon="heart" defaultRating={this.props.volunteers.length} maxRating={5} />{' '}
+              <span style={{ float: 'right' }}>{this.props.volunteers.length} helpers</span>
             </Card.Content>
           </Card>
         </Popup>

@@ -4,14 +4,8 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { fetchRequest } from '../../actions';
 
-import {
-  Button,
-  Grid,
-  Header,
-  Loader,
-  Message,
-  Statistic
-} from 'semantic-ui-react';
+import { Button, Grid, Header, Loader, Message, Statistic } from 'semantic-ui-react';
+
 import StaticMap from '../Map/StaticMap';
 
 class RequestShow extends Component {
@@ -20,25 +14,16 @@ class RequestShow extends Component {
   }
 
   render() {
-    const {
-      success,
-      error,
-      loading,
-      error_message,
-      request
-    } = this.props.requests;
+    const { success, error, loading, error_message, request } = this.props.requests;
+    const { auth } = this.props;
     return (
       <div>
         {loading && <Loader active />}
         {error && <Message error>{error_message}</Message>}
-        {success && request.user ? (
+        {success && request && request.user ? (
           <div>
             <div style={{ width: '100%', height: '300px' }}>
-              <StaticMap
-                center={{ lat: request.lat, lng: request.lng }}
-                marker={request}
-                zoom={16}
-              />
+              <StaticMap center={{ lat: request.lat, lng: request.lng }} marker={request} zoom={16} />
             </div>
             <Grid container className="mt-3" divided>
               <Grid.Row columns={2}>
@@ -48,23 +33,31 @@ class RequestShow extends Component {
                     <Header.Subheader>{request.address}</Header.Subheader>
                   </Header>
                   <Message className="mt-4">
-                    <Message.Header className="josefin f1em">
+                    <Message.Header
+                      className="josefin
+                      f1em"
+                    >
                       <p>
-                      <Link to={`/user/${request.user_id}`}>
-                        {` ${request.user.first_name} ${
-                          request.user.last_name
-                        } `}
-                      </Link>
-                      on {moment(request.created_at).format('LLL')}</p>
+                        <Link to={`/user/${request.user_id}`}>
+                          {` ${request.user.first_name} ${request.user.last_name} `}
+                        </Link>
+                        on {moment(request.created_at).format('LLL')}
+                      </p>
                     </Message.Header>
                     <p className="josefin nl2br f15em">{request.description}</p>
                   </Message>
                 </Grid.Column>
                 <Grid.Column width={4} textAlign="center">
-                  <Button color="green" fluid>
+                  <Button
+                    color="green"
+                    className={request.user_id === auth.user.id && 'disabled'}
+                    fluid
+                    to={`/r/${request.id}/help`}
+                    as={Link}
+                  >
                     Submit help
                   </Button>
-                  <Button className="mt-1" fluid>
+                  <Button className="mt-1" fluid to={`/r/${request.id}/helpers`} as={Link}>
                     View helpers
                   </Button>
 

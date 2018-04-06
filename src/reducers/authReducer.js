@@ -1,10 +1,4 @@
-import {
-  AUTH_ERROR,
-  AUTH_LOADING,
-  AUTH_SUCCESS,
-  AUTH_SET_TOKEN,
-  AUTH_FLUSH
-} from '../actions/types';
+import { AUTH_ERROR, AUTH_LOADING, AUTH_SUCCESS, AUTH_SET_TOKEN, AUTH_FLUSH } from '../actions/types';
 
 export default function authReducer(
   state = {

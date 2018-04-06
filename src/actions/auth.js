@@ -1,11 +1,5 @@
 import x from './index';
-import {
-  AUTH_ERROR,
-  AUTH_LOADING,
-  AUTH_SUCCESS,
-  AUTH_SET_TOKEN,
-  AUTH_FLUSH
-} from './types';
+import { AUTH_ERROR, AUTH_LOADING, AUTH_SUCCESS, AUTH_SET_TOKEN, AUTH_FLUSH } from './types';
 
 export const checkAuthFromToken = token => async dispatch => {
   dispatch({ type: AUTH_LOADING });
@@ -42,7 +36,7 @@ export const login = form => async dispatch => {
     const { data: { auth_token } } = await x.post('/authenticate', form);
     auth_token &&
       dispatch(setAuthTokenToLS(auth_token)) &&
-      dispatch({ type: AUTH_SET_TOKEN, auth_token }) &&
+      dispatch({ type: AUTH_SET_TOKEN, token: auth_token }) &&
       dispatch(checkAuthFromToken(auth_token));
   } catch (err) {
     dispatch({ type: AUTH_ERROR });

@@ -333,3 +333,7 @@
 .rem-3 {
   font-size: 3rem !important;
 }
+
+.capitalize {
+  text-transform: capitalize !important;
+}
