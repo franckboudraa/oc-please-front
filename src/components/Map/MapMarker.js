@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { Card, Icon, Rating, Popup } from 'semantic-ui-react';
+import { Card, Icon, Popup } from 'semantic-ui-react';
 
 const markerPosition = {
   position: 'absolute',
@@ -42,7 +42,6 @@ class MapMarker extends PureComponent {
               </Card.Description>
             </Card.Content>
             <Card.Content>
-              <Rating icon="heart" defaultRating={this.props.volunteers.length} maxRating={5} />{' '}
               <span style={{ float: 'right' }}>{this.props.volunteers.length} helpers</span>
             </Card.Content>
           </Card>

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { fetchRequest } from '../../actions';
 
-import { Button, Grid, Header, Loader, Message, Statistic } from 'semantic-ui-react';
+import { Button, Grid, Header, Image, Loader, Message, Statistic } from 'semantic-ui-react';
 
 import StaticMap from '../Map/StaticMap';
 
-class RequestShow extends Component {
+class RequestShow extends PureComponent {
   componentDidMount() {
     this.props.fetchRequest(this.props.match.params.id);
   }
@@ -28,23 +28,20 @@ class RequestShow extends Component {
             <Grid container className="mt-3" divided>
               <Grid.Row columns={2}>
                 <Grid.Column width={12}>
-                  <Header as="h1" className="josefin">
+                  <Header as="h1">
                     {request.title}
                     <Header.Subheader>{request.address}</Header.Subheader>
+                    <Header.Subheader style={{ float: 'right' }}>
+                      {moment(request.created_at).format('LLL')}
+                    </Header.Subheader>
                   </Header>
                   <Message className="mt-4">
-                    <Message.Header
-                      className="josefin
-                      f1em"
-                    >
-                      <p>
-                        <Link to={`/user/${request.user_id}`}>
-                          {` ${request.user.first_name} ${request.user.last_name} `}
-                        </Link>
-                        on {moment(request.created_at).format('LLL')}
-                      </p>
-                    </Message.Header>
-                    <p className="josefin nl2br f15em">{request.description}</p>
+                    <Message.Header className="f1em">Description</Message.Header>
+                    <p className="nl2br f15em">{request.description}</p>
+                  </Message>
+                  <Message className="mt-4">
+                    <Message.Header className="f1em">Helpers</Message.Header>
+                    <p className="nl2br f15em">{request.description}</p>
                   </Message>
                 </Grid.Column>
                 <Grid.Column width={4} textAlign="center">
@@ -57,9 +54,17 @@ class RequestShow extends Component {
                   >
                     Submit help
                   </Button>
-                  <Button className="mt-1" fluid to={`/r/${request.id}/helpers`} as={Link}>
-                    View helpers
-                  </Button>
+                  <Message>
+                    <Message.Header className="f1em">Asker</Message.Header>
+                    <Link to={`/user/${request.user_id}`}>
+                      <div>
+                        <Image avatar src="https://s3.amazonaws.com/uifaces/faces/twitter/diesellaws/128.jpg" />
+                        <span>
+                          {request.user.first_name} {request.user.last_name}
+                        </span>
+                      </div>
+                    </Link>
+                  </Message>
 
                   <Statistic>
                     <Statistic.Value>{request.volunteers.length}</Statistic.Value>

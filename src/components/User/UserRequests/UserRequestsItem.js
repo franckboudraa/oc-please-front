@@ -46,9 +46,9 @@ class UserRequestsItem extends PureComponent {
         <Table.Cell className="capitalize">{request.status}</Table.Cell>
         <Table.Cell>
           <Button.Group>
-            <Button as={Link} to={`/r/${request.id}/edit`} color="green" icon="edit" />
-            <Button as={Link} to={`/r/${request.id}/helpers`} color="blue" icon="users" />
-            <Button onClick={() => this.setState({ modalOpen: true })} color="red" icon="delete" />
+            <Button basic as={Link} to={`/r/${request.id}/edit`} color="green" icon="edit" />
+            <Button basic as={Link} to={`/r/${request.id}/helpers`} color="blue" icon="users" />
+            <Button basic onClick={() => this.setState({ modalOpen: true })} color="red" icon="delete" />
           </Button.Group>
           <Confirm
             open={modalOpen}
