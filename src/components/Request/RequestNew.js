@@ -35,19 +35,12 @@ class RequestNew extends PureComponent {
       <Grid centered container>
         <Grid.Row>
           <Grid.Column width={8}>
-            <Header
-              as="h1"
-              color="green"
-              textAlign="center"
-              className="josefin mt-4 rem-3 mb-4"
-            >
+            <Header as="h1" color="green" textAlign="center" className="mt-4 rem-3 mb-4">
               Create a request
             </Header>
             <Message>
               {flush ? (
-                <RequestNewForm
-                  onFormSubmit={() => this.setState({ submittedForm: true })}
-                />
+                <RequestNewForm onFormSubmit={() => this.setState({ submittedForm: true })} />
               ) : (
                 <Loader active />
               )}

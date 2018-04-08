@@ -41,7 +41,7 @@ class RequestShow extends PureComponent {
                   </Message>
                   <Message className="mt-4">
                     <Message.Header className="f1em">Helpers</Message.Header>
-                    <p className="nl2br f15em">{request.description}</p>
+                    <p className="nl2br f15em">{request.volunteers.length ? 'Volunteers' : 'No helpers yet!'}</p>
                   </Message>
                 </Grid.Column>
                 <Grid.Column width={4} textAlign="center">

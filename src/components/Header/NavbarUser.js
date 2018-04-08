@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import faker from 'faker';
 import { NavLink, Link } from 'react-router-dom';
 import { logout } from '../../actions';
@@ -7,7 +8,7 @@ import { Button, Container, Dropdown, Image, Menu } from 'semantic-ui-react';
 
 class NavbarUser extends Component {
   render() {
-    const { auth: { user: { first_name } } } = this.props;
+    const { auth: { user: { id, first_name, last_name } } } = this.props;
     return (
       <Menu borderless color="green" inverted attached>
         <Container>
@@ -37,7 +38,12 @@ class NavbarUser extends Component {
               }
             >
               <Dropdown.Menu>
-                <Dropdown.Item as={Link} to="/profile" icon="user" text="My profile" />
+                <Dropdown.Item
+                  as={Link}
+                  to={`/u/${id}/${_.kebabCase(first_name + '-' + last_name)}`}
+                  icon="user"
+                  text="My profile"
+                />
                 <Dropdown.Item as={Link} to="/settings" icon="setting" text="Settings" />
                 <Dropdown.Item icon="log out" onClick={() => this.props.logout()} text="Logout" />
               </Dropdown.Menu>

@@ -33,7 +33,7 @@ class UserRequestsItem extends PureComponent {
         <Table.Cell>
           <Header as="h4" image>
             <Header.Content>
-              <Link to={`/r/${request.id}`}>{request.title}</Link>
+              <Link to={`/r/${request.id}/${_.kebabCase(request.title)}`}>{request.title}</Link>
               <Header.Subheader>
                 <address>{request.address}</address>
               </Header.Subheader>

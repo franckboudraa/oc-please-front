@@ -15,6 +15,7 @@ import NotFound from './components/NotFound';
 import UserSettings from './components/User/UserSettings';
 import UserIDUpload from './components/User/UserIDUpload';
 import UserRequests from './components/User/UserRequests';
+import UserProfile from './components/User/UserProfile';
 
 import RequestNew from './components/Request/RequestNew';
 import RequestShow from './components/Request/RequestShow';
@@ -44,9 +45,10 @@ class App extends PureComponent {
           <Switch>
             {auth.user && !auth.user.identity && <PrivateRoute path="*" component={UserIDUpload} auth={auth} />}
             <Route exact path="/" component={auth.user ? Dashboard : Homepage} />
+            <Route path="/u/:id" component={props => <UserProfile {...props} auth={auth} />} />
             <PrivateRoute path="/settings" component={UserSettings} auth={auth} />
             <PrivateRoute path="/requests/new" component={RequestNew} auth={auth} />
-            <Route exact path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
+            <Route path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
             <PrivateRoute path="/r/:id/help" component={RequestHelp} auth={auth} />
             <PrivateRoute path="/me/requests" component={UserRequests} auth={auth} />
             <Route component={NotFound} />
