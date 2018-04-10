@@ -1,9 +1,14 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { getHomeStats } from '../actions';
+
 import { Container, Grid, Header, Statistic } from 'semantic-ui-react';
 import RegisterForm from './User/RegisterForm';
 
-class Homepage extends Component {
+class Homepage extends PureComponent {
   componentDidMount() {
+    this.props.getHomeStats();
+
     document.body.style.minHeight = '100%';
     document.body.style.height = '100%';
     document.body.style.background = 'url(/img/bg-home.jpg) center';
@@ -18,9 +23,11 @@ class Homepage extends Component {
     document.body.style.backgroundSize = null;
   }
   render() {
+    console.log(this.props.home);
+    const { stats: { requests_fulfilled, requests_unfulfilled, user_count } } = this.props.home;
     return (
       <Container textAlign="center">
-        <Header as="h1" className="josefin homepage-jumbotron my-5 light-blur">
+        <Header as="h1" className="homepage-jumbotron my-5 light-blur">
           Become the hero of your neighborhood.
         </Header>
         <Grid stackable>
@@ -33,16 +40,16 @@ class Homepage extends Component {
             <Grid.Column widths={8}>
               <Statistic.Group inverted widths={3} className="mt-5 light-blur">
                 <Statistic>
-                  <Statistic.Value>22</Statistic.Value>
-                  <Statistic.Label>In progress</Statistic.Label>
+                  <Statistic.Value>{requests_unfulfilled}</Statistic.Value>
+                  <Statistic.Label>Requests in progress</Statistic.Label>
                 </Statistic>
                 <Statistic>
-                  <Statistic.Value>31,200</Statistic.Value>
+                  <Statistic.Value>{user_count}</Statistic.Value>
                   <Statistic.Label>Members</Statistic.Label>
                 </Statistic>
                 <Statistic>
-                  <Statistic.Value>22</Statistic.Value>
-                  <Statistic.Label>Ended</Statistic.Label>
+                  <Statistic.Value>{requests_fulfilled}</Statistic.Value>
+                  <Statistic.Label>Requests fulfilled</Statistic.Label>
                 </Statistic>
               </Statistic.Group>
             </Grid.Column>
@@ -53,4 +60,8 @@ class Homepage extends Component {
   }
 }
 
-export default Homepage;
+function mapStateToProps({ home }) {
+  return { home };
+}
+
+export default connect(mapStateToProps, { getHomeStats })(Homepage);

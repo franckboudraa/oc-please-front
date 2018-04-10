@@ -21,3 +21,7 @@ export const REQ_USER_SUCCESS = 'req_user_success';
 export const USER_LOADING = 'user_loading';
 export const USER_SUCCESS = 'user_success';
 export const USER_ERROR = 'user_error';
+
+export const HOME_STATS_ERROR = 'home_stats_error';
+export const HOME_STATS_LOADING = 'home_stats_loading';
+export const HOME_STATS_SUCCESS = 'home_stats_success';

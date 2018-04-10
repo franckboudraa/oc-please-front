@@ -9,3 +9,4 @@ export * from './auth';
 export * from './users';
 export * from './map';
 export * from './requests';
+export * from './home';

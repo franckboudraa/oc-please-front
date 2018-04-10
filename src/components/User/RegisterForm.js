@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Form, Message } from 'semantic-ui-react';
 
 import { submitRegisterForm } from '../../actions';
@@ -18,8 +17,7 @@ class RegisterForm extends Component {
     };
   }
 
-  handleChange = (e, { name, value }) =>
-    this.setState({ form: { ...this.state.form, [name]: value } });
+  handleChange = (e, { name, value }) => this.setState({ form: { ...this.state.form, [name]: value } });
 
   handleSubmit = () => {
     const { form } = this.state;
@@ -30,12 +28,8 @@ class RegisterForm extends Component {
     const { form } = this.state;
     const { loading, error, message, success } = this.props.register;
     return !success ? (
-      <div className="mt-5">
-        <Message
-          attached
-          header="Welcome on Please!"
-          content="Fill out the form below to register (it's free!)"
-        />
+      <div className="mt-3">
+        <Message attached header="Welcome on Please!" content="Fill out the form below to register (it's free!)" />
         <Form
           onSubmit={this.handleSubmit}
           loading={loading}
@@ -97,12 +91,6 @@ class RegisterForm extends Component {
             Register
           </Form.Button>
         </Form>
-        <Message attached="bottom" size="tiny" warning>
-          <Link to="/login">Already have an account?</Link>
-          <span style={{ float: 'right' }}>
-            <Link to="/password">Password lost?</Link>
-          </span>
-        </Message>
       </div>
     ) : (
       <Message success header="Welcome!" content={message} />
