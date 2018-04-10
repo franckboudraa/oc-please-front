@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import faker from 'faker';
 import { NavLink, Link } from 'react-router-dom';
 import { logout } from '../../actions';
-import { Button, Container, Dropdown, Image, Menu } from 'semantic-ui-react';
+import { Button, Container, Dropdown, Menu } from 'semantic-ui-react';
 
 class NavbarUser extends Component {
   render() {
@@ -13,7 +12,7 @@ class NavbarUser extends Component {
       <Menu borderless color="green" inverted attached>
         <Container>
           <Menu.Item>
-            <Link to="/" className="josefin brand">
+            <Link to="/" className="brand">
               Please
             </Link>
           </Menu.Item>
@@ -29,14 +28,7 @@ class NavbarUser extends Component {
                 Create a request
               </Button>
             </Menu.Item>
-            <Dropdown
-              item
-              trigger={
-                <span>
-                  <Image avatar src={faker.internet.avatar()} /> {first_name}
-                </span>
-              }
-            >
+            <Dropdown item trigger={first_name + ' ' + last_name}>
               <Dropdown.Menu>
                 <Dropdown.Item
                   as={Link}

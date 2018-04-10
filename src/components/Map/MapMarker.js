@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import { Card, Icon, Popup } from 'semantic-ui-react';
 
 const markerPosition = {
@@ -34,7 +33,7 @@ class MapMarker extends PureComponent {
           <Card raised>
             <Card.Content>
               <Card.Header>{this.props.title}</Card.Header>
-              <Card.Meta>{moment(this.props.created_at).format('LLL')}</Card.Meta>
+              <Card.Meta>{this.props.address}</Card.Meta>
             </Card.Content>
             <Card.Content>
               <Card.Description className="nl2br">
@@ -42,6 +41,7 @@ class MapMarker extends PureComponent {
               </Card.Description>
             </Card.Content>
             <Card.Content>
+              {this.props.reqtype === 'task' ? 'Service request' : 'Material need'}
               <span style={{ float: 'right' }}>{this.props.volunteers.length} helpers</span>
             </Card.Content>
           </Card>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { fetchRequest } from '../../actions';
 
-import { Button, Grid, Header, Image, Loader, Message, Statistic } from 'semantic-ui-react';
+import { Button, Grid, Header, Loader, Message, Statistic } from 'semantic-ui-react';
 
 import StaticMap from '../Map/StaticMap';
 
@@ -55,14 +55,11 @@ class RequestShow extends PureComponent {
                     Submit help
                   </Button>
                   <Message>
-                    <Message.Header className="f1em">Asker</Message.Header>
+                    <Message.Header className="f1em">
+                      {request.reqtype === 'task' ? 'Service request' : 'Material need'} by
+                    </Message.Header>
                     <Link to={`/user/${request.user_id}`}>
-                      <div>
-                        <Image avatar src="https://s3.amazonaws.com/uifaces/faces/twitter/diesellaws/128.jpg" />
-                        <span>
-                          {request.user.first_name} {request.user.last_name}
-                        </span>
-                      </div>
+                      {request.user.first_name} {request.user.last_name}
                     </Link>
                   </Message>
 
