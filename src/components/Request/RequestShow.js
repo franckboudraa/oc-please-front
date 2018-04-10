@@ -47,16 +47,16 @@ class RequestShow extends PureComponent {
                 <Grid.Column width={4} textAlign="center">
                   <Button
                     color="green"
-                    className={request.user_id === auth.user.id && 'disabled'}
+                    className={!auth.user || (auth.user && request.user_id === auth.user.id) ? 'disabled' : ''}
                     fluid
                     to={`/r/${request.id}/help`}
                     as={Link}
                   >
-                    Submit help
+                    {!auth.user ? 'Login to submit help' : 'Submit help'}
                   </Button>
                   <Message>
                     <Message.Header className="f1em">
-                      {request.reqtype === 'task' ? 'Service request' : 'Material need'} by
+                      {request.reqtype === 'task' ? 'Service requested' : 'Material needed'} by
                     </Message.Header>
                     <Link to={`/user/${request.user_id}`}>
                       {request.user.first_name} {request.user.last_name}

@@ -1,17 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
 import NavbarGuest from './NavbarGuest';
 import NavbarUser from './NavbarUser';
 
-class Header extends Component {
-  render() {
-    return this.props.auth.user ? <NavbarUser /> : <NavbarGuest />;
-  }
-}
+const Header = props => {
+  return props.auth.user ? <NavbarUser /> : <NavbarGuest url={props.match.url} />;
+};
 
-function mapStateToProps({ auth }) {
-  return { auth };
-}
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

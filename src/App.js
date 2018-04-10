@@ -34,7 +34,7 @@ class App extends PureComponent {
     return (
       <Router>
         <div>
-          <Header />
+          <Route path="*" component={props => <Header {...props} auth={auth} />} />
           {auth.error && (
             <Container>
               <Message error>
@@ -48,12 +48,13 @@ class App extends PureComponent {
             <Route path="/u/:id" component={props => <UserProfile {...props} auth={auth} />} />
             <PrivateRoute path="/settings" component={UserSettings} auth={auth} />
             <PrivateRoute path="/requests/new" component={RequestNew} auth={auth} />
-            <Route path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
             <PrivateRoute path="/r/:id/help" component={RequestHelp} auth={auth} />
+            <Route path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
+
             <PrivateRoute path="/me/requests" component={UserRequests} auth={auth} />
             <Route component={NotFound} />
           </Switch>
-          <Footer />
+          <Route path="*" component={props => <Footer {...props} auth={auth} />} />
         </div>
       </Router>
     );

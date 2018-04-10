@@ -15,7 +15,7 @@ class UserRequests extends PureComponent {
     const { success, requests } = this.props.requests;
     return (
       <Container>
-        <Header as="h1" color="green" textAlign="center" className="josefin mt-4 rem-3 mb-4">
+        <Header as="h1" color="green" textAlign="center" className="mt-4 rem-3 mb-4">
           My requests
         </Header>
         {success && requests ? <UserRequestsList requests={requests} /> : <Loader active />}

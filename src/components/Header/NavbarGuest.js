@@ -14,31 +14,27 @@ class NavbarGuest extends PureComponent {
     };
   }
 
-  handleChange = (e, { name, value }) =>
-    this.setState({ form: { ...this.state.form, [name]: value } });
+  handleChange = (e, { name, value }) => this.setState({ form: { ...this.state.form, [name]: value } });
 
   handleSubmit = () => {
     const { form } = this.state;
     this.props.login(form);
   };
   render() {
+    console.log(this.props);
     const { form: { email, password } } = this.state;
     const { loading, error } = this.props.auth;
     return (
-      <Menu borderless color="green" className="transparent " inverted attached>
+      <Menu borderless color="green" className={this.props.url === '/' ? 'transparent' : ''} inverted attached>
         <Container>
           <Menu.Item>
-            <a href="/" className="josefin brand">
+            <a href="/" className="brand">
               Please
             </a>
           </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item className="p-0 mx-0 mb-0 mt-3">
-              <Form
-                loading={loading}
-                error={error}
-                onSubmit={this.handleSubmit}
-              >
+              <Form loading={loading} error={error} onSubmit={this.handleSubmit}>
                 <Form.Group widths="equal" inline>
                   <Form.Input
                     error={error}

@@ -4,10 +4,12 @@ import { Form } from 'semantic-ui-react';
 
 class RequestHelpForm extends PureComponent {
   render() {
-    console.log(this.props);
+    //const { request } = this.props;
     return (
       <Form>
         <Form.TextArea autoHeight />
+        <Form.Button floated="left">Back to request summary</Form.Button>
+        <Form.Button floated="right">Submit</Form.Button>
       </Form>
     );
   }
