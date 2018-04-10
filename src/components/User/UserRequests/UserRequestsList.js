@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import _ from 'lodash';
-import { Table } from 'semantic-ui-react';
+import { Message, Table } from 'semantic-ui-react';
 import UserRequestsItem from './UserRequestsItem';
 
 class UserRequestsList extends PureComponent {
@@ -35,7 +35,7 @@ class UserRequestsList extends PureComponent {
   render() {
     const { requests } = this.props;
     const { column, direction } = this.state;
-    return (
+    return requests.length ? (
       <Table basic="very" celled collapsing selectable sortable>
         <Table.Header>
           <Table.Row>
@@ -60,6 +60,10 @@ class UserRequestsList extends PureComponent {
 
         <Table.Body>{requests.map(request => <UserRequestsItem key={request.id} request={request} />)}</Table.Body>
       </Table>
+    ) : (
+      <Message>
+        <Message.Header>Oops</Message.Header>Sorry, it appears like you don't have created any request yet!
+      </Message>
     );
   }
 }

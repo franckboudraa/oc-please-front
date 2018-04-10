@@ -21,7 +21,6 @@ class NavbarGuest extends PureComponent {
     this.props.login(form);
   };
   render() {
-    console.log(this.props);
     const { form: { email, password } } = this.state;
     const { loading, error } = this.props.auth;
     return (

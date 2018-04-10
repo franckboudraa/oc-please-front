@@ -7,9 +7,12 @@ class RequestHelpForm extends PureComponent {
     //const { request } = this.props;
     return (
       <Form>
-        <Form.TextArea autoHeight />
-        <Form.Button floated="left">Back to request summary</Form.Button>
-        <Form.Button floated="right">Submit</Form.Button>
+        <Form.TextArea autoHeight minLength={10} maxLength={300} required />
+        <span style={{ textAlign: 'center' }}>
+          <Form.Button color="green" inline>
+            Submit
+          </Form.Button>
+        </span>
       </Form>
     );
   }

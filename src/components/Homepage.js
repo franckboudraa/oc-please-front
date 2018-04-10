@@ -23,7 +23,6 @@ class Homepage extends PureComponent {
     document.body.style.backgroundSize = null;
   }
   render() {
-    console.log(this.props.home);
     const { stats: { requests_fulfilled, requests_unfulfilled, user_count } } = this.props.home;
     return (
       <Container textAlign="center">
