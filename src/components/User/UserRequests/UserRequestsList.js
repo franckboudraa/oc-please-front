@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 import { Message, Table } from 'semantic-ui-react';
 import UserRequestsItem from './UserRequestsItem';
 
@@ -62,7 +63,8 @@ class UserRequestsList extends PureComponent {
       </Table>
     ) : (
       <Message>
-        <Message.Header>Oops</Message.Header>Sorry, it appears like you don't have created any request yet!
+        <Message.Header>Oops</Message.Header>Sorry, it appears like you don't have created any request yet!<br />
+        <Link to="/requests/new">Create one!</Link>
       </Message>
     );
   }
