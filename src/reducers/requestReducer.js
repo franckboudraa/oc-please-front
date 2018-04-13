@@ -1,4 +1,11 @@
-import { REQ_ERROR, REQ_LOADING, REQ_SUCCESS, REQ_FLUSH, REQ_USER_SUCCESS } from '../actions/types';
+import {
+  REQ_ERROR,
+  REQ_LOADING,
+  REQ_SUCCESS,
+  REQ_FLUSH,
+  REQ_USER_SUCCESS,
+  REQ_SUBMIT_HELP_SUCCESS
+} from '../actions/types';
 
 export default function requestReducer(
   state = {
@@ -8,7 +15,8 @@ export default function requestReducer(
     error_message: '',
     request: {},
     requests: [],
-    flush: false
+    flush: false,
+    submitHelp: false
   },
   action
 ) {
@@ -48,7 +56,8 @@ export default function requestReducer(
         error_message: '',
         request: {},
         requests: [],
-        flush: true
+        flush: true,
+        submitHelp: false
       };
     case REQ_USER_SUCCESS:
       return {
@@ -59,6 +68,11 @@ export default function requestReducer(
         error_message: '',
         requests: action.requests,
         flush: false
+      };
+    case REQ_SUBMIT_HELP_SUCCESS:
+      return {
+        ...state,
+        submitHelp: true
       };
     default:
       return state;

@@ -1,5 +1,5 @@
 import x from './index';
-import { REQ_ERROR, REQ_LOADING, REQ_SUCCESS, REQ_FLUSH, REQ_USER_SUCCESS } from './types';
+import { REQ_ERROR, REQ_LOADING, REQ_SUCCESS, REQ_FLUSH, REQ_USER_SUCCESS, REQ_SUBMIT_HELP_SUCCESS } from './types';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 export const submitRequest = form => async (dispatch, getState) => {
@@ -59,7 +59,6 @@ export const fetchRequest = id => async (dispatch, getState) => {
 };
 
 export const flushRequests = () => async dispatch => {
-  console.log('flush!');
   dispatch({ type: REQ_FLUSH });
 };
 
@@ -102,6 +101,33 @@ export const deleteRequest = id => async (dispatch, getState) => {
     dispatch({
       type: REQ_ERROR,
       error_message: 'Error while retrieving requests.'
+    });
+  }
+};
+
+export const submitHelpRequest = (id, message) => async (dispatch, getState) => {
+  dispatch({ type: REQ_LOADING });
+
+  const { auth: { token } } = await getState();
+
+  try {
+    const req = await x.post(
+      `/requests/${id}/volunteers`,
+      { message },
+      {
+        headers: { Authorization: token }
+      }
+    );
+
+    if (req.status === 201) {
+      dispatch({ type: REQ_SUBMIT_HELP_SUCCESS });
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while submitting help request.'
     });
   }
 };
