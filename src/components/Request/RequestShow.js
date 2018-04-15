@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { fetchRequest } from '../../actions';
@@ -7,6 +8,7 @@ import { fetchRequest } from '../../actions';
 import { Button, Grid, Header, Loader, Message, Statistic } from 'semantic-ui-react';
 
 import StaticMap from '../Map/StaticMap';
+import RequestVolunteersList from './RequestVolunteers/RequestVolunteersList';
 
 class RequestShow extends PureComponent {
   componentDidMount() {
@@ -18,7 +20,7 @@ class RequestShow extends PureComponent {
     const { auth } = this.props;
     let isAlreadyVolunteer = false;
 
-    if (success && request) {
+    if (success && request && auth.user) {
       isAlreadyVolunteer = request.volunteers.filter(volunteer => volunteer.user_id === auth.user.id).length;
     }
 
@@ -43,11 +45,19 @@ class RequestShow extends PureComponent {
                   </Header>
                   <Message className="mt-4">
                     <Message.Header className="f1em">Description</Message.Header>
-                    <p className="nl2br f15em">{request.description}</p>
+                    <p className="nl2br f1em">{request.description}</p>
                   </Message>
                   <Message className="mt-4">
-                    <Message.Header className="f1em">Helpers</Message.Header>
-                    <p className="nl2br f15em">{request.volunteers.length ? 'Volunteers' : 'No helpers yet!'}</p>
+                    <Message.Header className="f1em">Volunteers</Message.Header>
+                    <div className="nl2br f1em">
+                      {!auth.user ? (
+                        <p>Login to see volunteers</p>
+                      ) : request.volunteers.length ? (
+                        <RequestVolunteersList volunteers={request.volunteers} />
+                      ) : (
+                        <p>No volunteer yet!</p>
+                      )}
+                    </div>
                   </Message>
                 </Grid.Column>
                 <Grid.Column width={4} textAlign="center">
@@ -75,7 +85,11 @@ class RequestShow extends PureComponent {
                     <Message.Header className="f1em">
                       {request.reqtype === 'task' ? 'Service requested' : 'Material needed'} by
                     </Message.Header>
-                    <Link to={`/user/${request.user_id}`}>
+                    <Link
+                      to={`/u/${request.user_id}/${_.kebabCase(
+                        request.user.first_name + '-' + request.user.last_name
+                      )}`}
+                    >
                       {request.user.first_name} {request.user.last_name}
                     </Link>
                   </Message>

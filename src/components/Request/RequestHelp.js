@@ -23,7 +23,7 @@ class RequestHelp extends PureComponent {
   render() {
     const { requests: { success, request, submitHelp }, auth } = this.props;
 
-    submitHelp && this.redirectTo('/me/requests');
+    submitHelp && this.redirectTo('/me/proposals');
 
     // If request has enough volunteers (5) or request is fulfilled or request creator is current user, or user is already a volunteer, redirect back
     if (success && request) {

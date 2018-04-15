@@ -131,3 +131,25 @@ export const submitHelpRequest = (id, message) => async (dispatch, getState) => 
     });
   }
 };
+
+export const fetchUserProposals = id => async (dispatch, getState) => {
+  dispatch({ type: REQ_LOADING });
+  const { auth: { token } } = await getState();
+
+  try {
+    const req = await x.get(`/volunteers`, {
+      headers: { Authorization: token }
+    });
+
+    if (req.status === 200) {
+      dispatch({ type: REQ_USER_SUCCESS, requests: req.data });
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while retrieving requests.'
+    });
+  }
+};

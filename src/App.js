@@ -16,6 +16,7 @@ import UserSettings from './components/User/UserSettings';
 import UserIDUpload from './components/User/UserIDUpload';
 import UserRequests from './components/User/UserRequests';
 import UserProfile from './components/User/UserProfile';
+import UserProposals from './components/User/UserProposals';
 
 import RequestNew from './components/Request/RequestNew';
 import RequestShow from './components/Request/RequestShow';
@@ -52,6 +53,7 @@ class App extends PureComponent {
             <Route path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
 
             <PrivateRoute path="/me/requests" component={UserRequests} auth={auth} />
+            <PrivateRoute path="/me/proposals" component={UserProposals} auth={auth} />
             <Route component={NotFound} />
           </Switch>
           <Route path="*" component={props => <Footer {...props} auth={auth} />} />

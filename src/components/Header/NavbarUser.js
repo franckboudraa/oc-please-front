@@ -22,6 +22,9 @@ class NavbarUser extends Component {
           <Menu.Item>
             <NavLink to="/me/requests">My requests</NavLink>
           </Menu.Item>
+          <Menu.Item>
+            <NavLink to="/me/proposals">My proposals</NavLink>
+          </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item>
               <Button basic inverted as={Link} to="/requests/new">
