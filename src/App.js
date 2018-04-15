@@ -21,6 +21,7 @@ import UserProposals from './components/User/UserProposals';
 import RequestNew from './components/Request/RequestNew';
 import RequestShow from './components/Request/RequestShow';
 import RequestHelp from './components/Request/RequestHelp';
+import RequestVolunteers from './components/Request/RequestVolunteers';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -50,6 +51,7 @@ class App extends PureComponent {
             <PrivateRoute path="/settings" component={UserSettings} auth={auth} />
             <PrivateRoute path="/requests/new" component={RequestNew} auth={auth} />
             <PrivateRoute path="/r/:id/help" component={RequestHelp} auth={auth} />
+            <PrivateRoute path="/r/:id/volunteers" component={RequestVolunteers} auth={auth} />
             <Route path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
 
             <PrivateRoute path="/me/requests" component={UserRequests} auth={auth} />

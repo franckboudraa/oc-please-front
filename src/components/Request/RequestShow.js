@@ -20,7 +20,7 @@ class RequestShow extends PureComponent {
     const { auth } = this.props;
     let isAlreadyVolunteer = false;
 
-    if (success && request && auth.user) {
+    if (success && request && auth.user && request.volunteers) {
       isAlreadyVolunteer = request.volunteers.filter(volunteer => volunteer.user_id === auth.user.id).length;
     }
 

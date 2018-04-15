@@ -153,3 +153,26 @@ export const fetchUserProposals = id => async (dispatch, getState) => {
     });
   }
 };
+
+export const fetchVolunteersForRequest = id => async (dispatch, getState) => {
+  dispatch({ type: REQ_LOADING });
+
+  const { auth: { token } } = await getState();
+
+  try {
+    const req = await x.get(`/requests/${id}/volunteers`, {
+      headers: { Authorization: token }
+    });
+
+    if (req.status === 200) {
+      dispatch({ type: REQ_SUCCESS, request: req.data });
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while retrieving requests.'
+    });
+  }
+};
