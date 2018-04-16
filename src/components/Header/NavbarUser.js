@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import Gravatar from 'react-gravatar';
 import { NavLink, Link } from 'react-router-dom';
 import { logout } from '../../actions';
 import { Button, Container, Dropdown, Menu } from 'semantic-ui-react';
 
 class NavbarUser extends Component {
   render() {
-    const { auth: { user: { id, first_name, last_name } } } = this.props;
+    const { auth: { user: { id, first_name, last_name, email } } } = this.props;
     return (
       <Menu borderless color="green" inverted attached>
         <Container>
@@ -31,7 +32,14 @@ class NavbarUser extends Component {
                 Create a request
               </Button>
             </Menu.Item>
-            <Dropdown item trigger={first_name + ' ' + last_name}>
+            <Dropdown
+              item
+              trigger={
+                <span>
+                  <Gravatar email={email} className="ui avatar image" /> {first_name} {last_name}
+                </span>
+              }
+            >
               <Dropdown.Menu>
                 <Dropdown.Item
                   as={Link}

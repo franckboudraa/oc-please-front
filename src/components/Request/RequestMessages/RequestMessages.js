@@ -1,7 +1,8 @@
 import React from 'react';
 import { Icon, Label, Menu, Tab } from 'semantic-ui-react';
+import RequestMessagesList from './RequestMessagesList';
 
-const RequestVolunteersMessages = ({ volunteers }) => {
+const RequestMessages = ({ volunteers }) => {
   const panes = [];
 
   volunteers.map(volunteer => {
@@ -13,7 +14,11 @@ const RequestVolunteersMessages = ({ volunteers }) => {
           <Label>{volunteer.messages.length}</Label>
         </Menu.Item>
       ),
-      render: () => <Tab.Pane>{volunteer.status}</Tab.Pane>
+      render: () => (
+        <Tab.Pane key={volunteer.id}>
+          <RequestMessagesList key={volunteer.id} volunteer={volunteer} />
+        </Tab.Pane>
+      )
     });
   });
   /*const panes = [
@@ -29,4 +34,4 @@ const RequestVolunteersMessages = ({ volunteers }) => {
   return <Tab panes={panes} />;
 };
 
-export default RequestVolunteersMessages;
+export default RequestMessages;

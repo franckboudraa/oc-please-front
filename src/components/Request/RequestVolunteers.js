@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { fetchVolunteersForRequest } from '../../actions';
 
 import { Button, Container, Header, Icon, Loader, Message } from 'semantic-ui-react';
-import RequestVolunteersMessages from './RequestVolunteers/RequestVolunteersMessages';
+import RequestMessages from './RequestMessages/RequestMessages';
 
 class RequestVolunteers extends PureComponent {
   componentDidMount() {
@@ -30,7 +30,7 @@ class RequestVolunteers extends PureComponent {
             {error_message}
           </Message>
         )}
-        {success && request && <RequestVolunteersMessages volunteers={request.volunteers} />}
+        {success && request && <RequestMessages volunteers={request.volunteers} />}
       </Container>
     );
   }

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import Gravatar from 'react-gravatar';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import { fetchRequest } from '../../actions';
@@ -90,7 +91,10 @@ class RequestShow extends PureComponent {
                         request.user.first_name + '-' + request.user.last_name
                       )}`}
                     >
-                      {request.user.first_name} {request.user.last_name}
+                      <span>
+                        <Gravatar email={request.user.email} className="ui avatar image" /> {request.user.first_name}{' '}
+                        {request.user.last_name}
+                      </span>
                     </Link>
                   </Message>
 
