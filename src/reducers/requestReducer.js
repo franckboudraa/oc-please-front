@@ -4,22 +4,26 @@ import {
   REQ_SUCCESS,
   REQ_FLUSH,
   REQ_USER_SUCCESS,
-  REQ_SUBMIT_HELP_SUCCESS
+  REQ_SUBMIT_HELP_SUCCESS,
+  REQ_MSG_LOADING,
+  REQ_MSG_SUCCESS
 } from '../actions/types';
 
-export default function requestReducer(
-  state = {
-    success: false,
-    loading: false,
-    error: false,
-    error_message: '',
-    request: {},
-    requests: [],
-    flush: false,
-    submitHelp: false
-  },
-  action
-) {
+const defaultState = {
+  success: false,
+  loading: false,
+  error: false,
+  error_message: '',
+  request: {},
+  requests: [],
+  flush: false,
+  submitHelp: false,
+  msg: {
+    loading: false
+  }
+};
+
+export default function requestReducer(state = defaultState, action) {
   switch (action.type) {
     case REQ_ERROR:
       return {
@@ -50,14 +54,8 @@ export default function requestReducer(
       };
     case REQ_FLUSH:
       return {
-        success: false,
-        loading: false,
-        error: false,
-        error_message: '',
-        request: {},
-        requests: [],
-        flush: true,
-        submitHelp: false
+        ...defaultState,
+        flush: true
       };
     case REQ_USER_SUCCESS:
       return {
@@ -73,6 +71,16 @@ export default function requestReducer(
       return {
         ...state,
         submitHelp: true
+      };
+    case REQ_MSG_LOADING:
+      return {
+        ...state,
+        msg: { ...state.msg, loading: true }
+      };
+    case REQ_MSG_SUCCESS:
+      return {
+        ...state,
+        msg: { ...state.msg, loading: false }
       };
     default:
       return state;

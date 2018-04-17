@@ -24,9 +24,6 @@ const RequestMessagesItem = ({ message }) => {
         <Comment.Text>
           <p className="nl2br">{message.content}</p>
         </Comment.Text>
-        <Comment.Actions>
-          <Comment.Action>Reply</Comment.Action>
-        </Comment.Actions>
       </Comment.Content>
     </Comment>
   );

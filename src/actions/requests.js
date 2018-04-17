@@ -1,5 +1,14 @@
 import x from './index';
-import { REQ_ERROR, REQ_LOADING, REQ_SUCCESS, REQ_FLUSH, REQ_USER_SUCCESS, REQ_SUBMIT_HELP_SUCCESS } from './types';
+import {
+  REQ_ERROR,
+  REQ_LOADING,
+  REQ_SUCCESS,
+  REQ_FLUSH,
+  REQ_USER_SUCCESS,
+  REQ_SUBMIT_HELP_SUCCESS,
+  REQ_MSG_LOADING,
+  REQ_MSG_SUCCESS
+} from './types';
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 export const submitRequest = form => async (dispatch, getState) => {
@@ -173,6 +182,33 @@ export const fetchVolunteersForRequest = id => async (dispatch, getState) => {
     dispatch({
       type: REQ_ERROR,
       error_message: 'Error while retrieving requests.'
+    });
+  }
+};
+
+export const submitVolunteerMessage = (form, volunteerId) => async (dispatch, getState) => {
+  dispatch({ type: REQ_MSG_LOADING });
+
+  const { auth: { token } } = await getState();
+
+  try {
+    const req = await x.post(
+      `/messages`,
+      { content: form.content, id: volunteerId },
+      {
+        headers: { Authorization: token }
+      }
+    );
+
+    if (req.status === 201) {
+      dispatch(fetchVolunteersForRequest(req.data.request_id)) && dispatch({ type: REQ_MSG_SUCCESS });
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while submitting help request.'
     });
   }
 };
