@@ -146,10 +146,10 @@ export const fetchUserProposals = id => async (dispatch, getState) => {
   const { auth: { token } } = await getState();
 
   try {
-    const req = await x.get(`/volunteers`, {
+    const req = await x.get(`/me/proposals`, {
       headers: { Authorization: token }
     });
-
+    console.log(req.data);
     if (req.status === 200) {
       dispatch({ type: REQ_USER_SUCCESS, requests: req.data });
     } else {

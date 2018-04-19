@@ -4,7 +4,7 @@ import { fetchUserProposals, flushRequests } from '../../actions';
 
 import { Container, Header, Loader } from 'semantic-ui-react';
 
-import UserRequestsList from './UserRequests/UserRequestsList';
+import UserProposalsList from './UserProposals/UserProposalsList';
 
 class UserProposals extends PureComponent {
   componentDidMount() {
@@ -18,7 +18,7 @@ class UserProposals extends PureComponent {
         <Header as="h1" color="green" textAlign="center" className="mt-4 rem-3 mb-4">
           My proposals
         </Header>
-        {success && requests ? <UserRequestsList requests={requests} /> : <Loader active />}
+        {success && requests ? <UserProposalsList requests={requests} /> : <Loader active />}
       </Container>
     );
   }
