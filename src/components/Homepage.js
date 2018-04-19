@@ -6,22 +6,33 @@ import { Container, Grid, Header, Statistic } from 'semantic-ui-react';
 import RegisterForm from './User/RegisterForm';
 
 class Homepage extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      timer: null
+    };
+  }
   componentDidMount() {
     this.props.getHomeStats();
-
+    let timer = setInterval(this.props.getHomeStats, 10000);
+    this.setState({ timer });
     document.body.style.minHeight = '100%';
     document.body.style.height = '100%';
     document.body.style.background = 'url(/img/bg-home.jpg) center';
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundSize = 'cover';
   }
+
   componentWillUnmount() {
     document.body.style.minHeight = null;
     document.body.style.height = null;
     document.body.style.background = null;
     document.body.style.backgroundRepeat = null;
     document.body.style.backgroundSize = null;
+    clearInterval(this.state.timer);
   }
+
   render() {
     const { stats: { requests_fulfilled, requests_unfulfilled, user_count } } = this.props.home;
     return (
