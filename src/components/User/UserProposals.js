@@ -12,13 +12,15 @@ class UserProposals extends PureComponent {
   }
 
   render() {
-    const { success, requests } = this.props.requests;
-    return (
+    const { success, requests, loading } = this.props.requests;
+    return loading ? (
+      <Loader active />
+    ) : (
       <Container>
         <Header as="h1" color="green" textAlign="center" className="mt-4 rem-3 mb-4">
           My proposals
         </Header>
-        {success && requests ? <UserProposalsList requests={requests} /> : <Loader active />}
+        {success && requests ? <UserProposalsList requests={requests} auth={this.props.auth} /> : <Loader active />}
       </Container>
     );
   }

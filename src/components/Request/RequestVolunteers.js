@@ -30,14 +30,14 @@ class RequestVolunteers extends PureComponent {
             {error_message}
           </Message>
         )}
-        {success && request && <RequestMessages volunteers={request.volunteers} />}
+        {success && request && <RequestMessages volunteers={request.volunteers} auth={this.props.auth} />}
       </Container>
     );
   }
 }
 
-function mapStateToProps({ requests }) {
-  return { requests };
+function mapStateToProps({ requests, auth }) {
+  return { requests, auth };
 }
 
 export default connect(mapStateToProps, { fetchVolunteersForRequest })(RequestVolunteers);

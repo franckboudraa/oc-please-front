@@ -59,7 +59,9 @@ class UserProposalsList extends PureComponent {
           </Table.Row>
         </Table.Header>
 
-        <Table.Body>{requests.map(request => <UserProposalsItem key={request.id} request={request} />)}</Table.Body>
+        <Table.Body>
+          {requests.map(request => <UserProposalsItem key={request.id} request={request} auth={this.props.auth} />)}
+        </Table.Body>
       </Table>
     ) : (
       <Message>

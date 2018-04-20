@@ -185,7 +185,7 @@ export const fetchVolunteersForRequest = id => async (dispatch, getState) => {
   }
 };
 
-export const submitVolunteerMessage = (form, volunteerId) => async (dispatch, getState) => {
+export const submitVolunteerMessage = (form, volunteerID, dispatchType = 0) => async (dispatch, getState) => {
   dispatch({ type: REQ_MSG_LOADING });
 
   const { auth: { token } } = await getState();
@@ -193,14 +193,18 @@ export const submitVolunteerMessage = (form, volunteerId) => async (dispatch, ge
   try {
     const req = await x.post(
       `/messages`,
-      { content: form.content, id: volunteerId },
+      { content: form.content, id: volunteerID },
       {
         headers: { Authorization: token }
       }
     );
 
     if (req.status === 201) {
-      dispatch(fetchVolunteersForRequest(req.data.request_id)) && dispatch({ type: REQ_MSG_SUCCESS });
+      if (!dispatchType) {
+        return dispatch(fetchVolunteersForRequest(req.data.request_id)) && dispatch({ type: REQ_MSG_SUCCESS });
+      } else {
+        return dispatch(fetchMessagesForVolunteer(volunteerID)) && dispatch({ type: REQ_MSG_SUCCESS });
+      }
     } else {
       throw new Error('http_code_error');
     }
@@ -293,6 +297,28 @@ export const declineHelpRequest = (requestID, volunteerID) => async (dispatch, g
     dispatch({
       type: REQ_ERROR,
       error_message: 'Error while updating request'
+    });
+  }
+};
+export const fetchMessagesForVolunteer = volunteerID => async (dispatch, getState) => {
+  dispatch({ type: REQ_LOADING });
+
+  const { auth: { token } } = await getState();
+
+  try {
+    const req = await x.get(`/volunteers/${volunteerID}/messages`, {
+      headers: { Authorization: token }
+    });
+
+    if (req.status === 200) {
+      dispatch({ type: REQ_SUCCESS, request: [req.data] });
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while retrieving requests.'
     });
   }
 };

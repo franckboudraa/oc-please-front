@@ -31,7 +31,7 @@ class RequestMessagesList extends PureComponent {
   handleChange = (e, { name, value }) => this.setState({ form: { ...this.state.form, [name]: value } });
 
   render() {
-    const { volunteer, requests: { msg, request } } = this.props;
+    const { volunteer, requests: { msg, request }, auth } = this.props;
     const { form, modalAcceptOpen, modalDeclineOpen } = this.state;
     return (
       <Grid>
@@ -40,49 +40,57 @@ class RequestMessagesList extends PureComponent {
             <Header as="h4">Messages</Header>
             <Comment.Group>
               {volunteer.messages.map(message => <RequestMessagesItem key={message.id} message={message} />)}
-              <Form reply loading={msg.loading} onSubmit={() => this.props.submitVolunteerMessage(form, volunteer.id)}>
+              <Form
+                reply
+                loading={msg.loading}
+                onSubmit={() => this.props.submitVolunteerMessage(form, volunteer.id, this.props.dispatchType)}
+              >
                 <Form.TextArea autoHeight name="content" value={form.content} onChange={this.handleChange} />
                 <Button content="Reply" labelPosition="left" icon="reply" color="green" />
               </Form>
             </Comment.Group>
           </Grid.Column>
-          <Grid.Column width={4}>
-            <Header as="h4">Actions</Header>
+          {request.user_id === auth.user.id && (
+            <Grid.Column width={4}>
+              <Header as="h4">Actions</Header>
 
-            <Button
-              fluid
-              size="small"
-              content="Accept this helper"
-              labelPosition="left"
-              icon="checkmark"
-              color="green"
-              className="my-1"
-              disabled={request.status === 'fulfilled'}
-              onClick={() => this.setState({ modalAcceptOpen: true })}
-            />
-            <Button
-              fluid
-              size="small"
-              content="Decline"
-              labelPosition="left"
-              icon="cancel"
-              color="red"
-              className="my-1"
-              disabled={request.status === 'fulfilled'}
-              onClick={() => this.setState({ modalDeclineOpen: true })}
-            />
-            <Button
-              fluid
-              as={Link}
-              to={`/u/${volunteer.user_id}/${_.kebabCase(volunteer.user.first_name + '-' + volunteer.user.last_name)}`}
-              size="small"
-              content="View profile"
-              labelPosition="left"
-              icon="user"
-              primary
-              className="my-1"
-            />
-          </Grid.Column>
+              <Button
+                fluid
+                size="small"
+                content="Accept this helper"
+                labelPosition="left"
+                icon="checkmark"
+                color="green"
+                className="my-1"
+                disabled={request.status === 'fulfilled'}
+                onClick={() => this.setState({ modalAcceptOpen: true })}
+              />
+              <Button
+                fluid
+                size="small"
+                content="Decline"
+                labelPosition="left"
+                icon="cancel"
+                color="red"
+                className="my-1"
+                disabled={request.status === 'fulfilled'}
+                onClick={() => this.setState({ modalDeclineOpen: true })}
+              />
+              <Button
+                fluid
+                as={Link}
+                to={`/u/${volunteer.user_id}/${_.kebabCase(
+                  volunteer.user.first_name + '-' + volunteer.user.last_name
+                )}`}
+                size="small"
+                content="View profile"
+                labelPosition="left"
+                icon="user"
+                primary
+                className="my-1"
+              />
+            </Grid.Column>
+          )}
         </Grid.Row>
         <Confirm
           open={modalDeclineOpen}

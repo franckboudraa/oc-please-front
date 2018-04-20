@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, Label, Menu, Tab } from 'semantic-ui-react';
 import RequestMessagesList from './RequestMessagesList';
 
-const RequestMessages = ({ volunteers }) => {
+const RequestMessages = ({ volunteers, auth, dispatchType }) => {
   const panes = [];
   volunteers.map(volunteer => {
     let iconName;
@@ -25,7 +25,7 @@ const RequestMessages = ({ volunteers }) => {
       ),
       render: () => (
         <Tab.Pane key={volunteer.id}>
-          <RequestMessagesList key={volunteer.id} volunteer={volunteer} />
+          <RequestMessagesList key={volunteer.id} volunteer={volunteer} auth={auth} dispatchType={dispatchType} />
         </Tab.Pane>
       )
     });

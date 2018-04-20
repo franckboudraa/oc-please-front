@@ -23,8 +23,14 @@ class UserProposalsItem extends PureComponent {
   };
 
   render() {
-    const { request } = this.props;
+    const { request, auth } = this.props;
     const { modalDeleteOpen, modalFulfillOpen } = this.state;
+
+    let volunteerID = 0;
+    const volunteers = request.volunteers.filter(volunteer => volunteer.user_id === auth.user.id);
+    if (volunteers.length) {
+      volunteerID = volunteers[0].id;
+    }
 
     return (
       <Table.Row>
@@ -59,7 +65,7 @@ class UserProposalsItem extends PureComponent {
               icon="checkmark"
               disabled={request.status === 'fulfilled'}
             />
-            <Button basic as={Link} to={`/r/${request.id}/discuss`} color="blue" icon="comment" />
+            <Button basic as={Link} to={`/r/${volunteerID}/discuss`} color="blue" icon="comment" />
             <Button
               basic
               onClick={() => this.setState({ modalDeleteOpen: true })}
