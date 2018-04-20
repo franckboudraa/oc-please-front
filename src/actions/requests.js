@@ -149,7 +149,6 @@ export const fetchUserProposals = id => async (dispatch, getState) => {
     const req = await x.get(`/me/proposals`, {
       headers: { Authorization: token }
     });
-    console.log(req.data);
     if (req.status === 200) {
       dispatch({ type: REQ_USER_SUCCESS, requests: req.data });
     } else {
@@ -209,6 +208,56 @@ export const submitVolunteerMessage = (form, volunteerId) => async (dispatch, ge
     dispatch({
       type: REQ_ERROR,
       error_message: 'Error while submitting help request.'
+    });
+  }
+};
+
+export const deleteHelpRequest = id => async (dispatch, getState) => {
+  const { auth: { user, token } } = await getState();
+
+  try {
+    const req = await x.delete(`/volunteers/${id}`, {
+      headers: { Authorization: token }
+    });
+
+    if (req.status === 200) {
+      dispatch(fetchUserProposals(user.id));
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while retrieving requests.'
+    });
+  }
+};
+
+export const fulfillRequest = request => async (dispatch, getState) => {
+  const { auth: { user, token } } = await getState();
+
+  const requestID = request.id;
+  const volunteer = request.volunteers.filter(volunteer => volunteer.user_id === user.id);
+  const volunteerID = volunteer[0].id;
+
+  try {
+    const req = await x.patch(
+      `/requests/${requestID}/volunteers/${volunteerID}`,
+      {},
+      {
+        headers: { Authorization: token }
+      }
+    );
+
+    if (req.status === 200) {
+      dispatch(fetchUserProposals(user.id));
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while updating request'
     });
   }
 };

@@ -44,7 +44,9 @@ class MapMarker extends PureComponent {
             </Card.Content>
             <Card.Content>
               {request.reqtype === 'task' ? 'Service request' : 'Material need'}
-              <span style={{ float: 'right' }}>{request.volunteers.length} helpers</span>
+              <span style={{ float: 'right' }}>
+                {request.volunteers.length} helper{request.volunteers.length > 1 && 's'}
+              </span>
             </Card.Content>
           </Card>
         </Popup>
