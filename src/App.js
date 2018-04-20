@@ -22,6 +22,7 @@ import RequestNew from './components/Request/RequestNew';
 import RequestShow from './components/Request/RequestShow';
 import RequestHelp from './components/Request/RequestHelp';
 import RequestVolunteers from './components/Request/RequestVolunteers';
+import RequestDiscuss from './components/Request/RequestDiscuss';
 
 class App extends PureComponent {
   componentDidMount() {
@@ -52,10 +53,12 @@ class App extends PureComponent {
             <PrivateRoute path="/requests/new" component={RequestNew} auth={auth} />
             <PrivateRoute path="/r/:id/help" component={RequestHelp} auth={auth} />
             <PrivateRoute path="/r/:id/volunteers" component={RequestVolunteers} auth={auth} />
+            <PrivateRoute path="/r/:id/discuss" component={RequestDiscuss} auth={auth} />
             <Route path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
 
             <PrivateRoute path="/me/requests" component={UserRequests} auth={auth} />
             <PrivateRoute path="/me/proposals" component={UserProposals} auth={auth} />
+
             <Route component={NotFound} />
           </Switch>
           <Route path="*" component={props => <Footer {...props} auth={auth} />} />

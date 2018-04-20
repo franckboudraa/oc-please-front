@@ -63,7 +63,7 @@ class UserProposalsList extends PureComponent {
       </Table>
     ) : (
       <Message>
-        <Message.Header>Oops</Message.Header>Sorry, it appears like you haven't offered your help yet!<br />
+        <Message.Header>Oops</Message.Header>Sorry, it looks like you haven't offered your help yet!<br />
         <Link to="/">Help one!</Link>
       </Message>
     );

@@ -63,7 +63,7 @@ class UserRequestsList extends PureComponent {
       </Table>
     ) : (
       <Message>
-        <Message.Header>Oops</Message.Header>Sorry, it appears like you don't have created any request yet!<br />
+        <Message.Header>Oops</Message.Header>Sorry, it looks like you haven't created any request yet!<br />
         <Link to="/requests/new">Create one!</Link>
       </Message>
     );

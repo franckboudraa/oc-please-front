@@ -59,7 +59,7 @@ class UserProposalsItem extends PureComponent {
               icon="checkmark"
               disabled={request.status === 'fulfilled'}
             />
-            <Button basic as={Link} to={`/r/${request.id}/volunteers`} color="blue" icon="comment" />
+            <Button basic as={Link} to={`/r/${request.id}/discuss`} color="blue" icon="comment" />
             <Button
               basic
               onClick={() => this.setState({ modalDeleteOpen: true })}
