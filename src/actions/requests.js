@@ -233,12 +233,14 @@ export const deleteHelpRequest = id => async (dispatch, getState) => {
   }
 };
 
-export const fulfillRequest = request => async (dispatch, getState) => {
+export const fulfillRequest = (request, volunteerID = 0, dispatchType) => async (dispatch, getState) => {
   const { auth: { user, token } } = await getState();
-
   const requestID = request.id;
-  const volunteer = request.volunteers.filter(volunteer => volunteer.user_id === user.id);
-  const volunteerID = volunteer[0].id;
+
+  if (volunteerID === 0) {
+    const volunteer = request.volunteers.filter(volunteer => volunteer.user_id === user.id);
+    volunteerID = volunteer[0].id;
+  }
 
   try {
     const req = await x.patch(
@@ -250,7 +252,11 @@ export const fulfillRequest = request => async (dispatch, getState) => {
     );
 
     if (req.status === 200) {
-      dispatch(fetchUserProposals(user.id));
+      if (dispatchType === 1) {
+        dispatch(fetchUserProposals(user.id));
+      } else {
+        dispatch(fetchVolunteersForRequest(requestID));
+      }
     } else {
       throw new Error('http_code_error');
     }
@@ -260,4 +266,16 @@ export const fulfillRequest = request => async (dispatch, getState) => {
       error_message: 'Error while updating request'
     });
   }
+};
+
+export const resetRequest = id => async (dispatch, getState) => {
+  // action
+};
+
+export const acceptHelpRequest = (volunteerID, requestID) => async (dispatch, getState) => {
+  // action
+};
+
+export const declineHelpRequest = (volunteerID, requestID) => async (dispatch, getState) => {
+  // action
 };

@@ -22,9 +22,8 @@ class RequestShow extends PureComponent {
     let isAlreadyVolunteer = false;
 
     if (success && request && auth.user && request.volunteers) {
-      isAlreadyVolunteer = request.volunteers.filter(volunteer => volunteer.user_id === auth.user.id).length;
+      isAlreadyVolunteer = request.volunteers.filter(volunteer => volunteer.user.id === auth.user.id).length;
     }
-
     return (
       <div>
         {loading && <Loader active />}
@@ -70,7 +69,10 @@ class RequestShow extends PureComponent {
                     <Button
                       color="green"
                       className={
-                        !auth.user || (auth.user && request.user_id === auth.user.id) || isAlreadyVolunteer
+                        !auth.user ||
+                        (auth.user && request.user_id === auth.user.id) ||
+                        isAlreadyVolunteer ||
+                        request.volunteers.length >= 5
                           ? 'disabled'
                           : ''
                       }

@@ -19,7 +19,7 @@ class UserProposalsItem extends PureComponent {
 
   handleFulfill = request => {
     this.setState({ modalFulfillOpen: false });
-    this.props.fulfillRequest(request);
+    this.props.fulfillRequest(request, 0, 1);
   };
 
   render() {

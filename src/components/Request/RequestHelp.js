@@ -27,7 +27,7 @@ class RequestHelp extends PureComponent {
 
     // If request has enough volunteers (5) or request is fulfilled or request creator is current user, or user is already a volunteer, redirect back
     if (success && request) {
-      const isAlreadyVolunteer = request.volunteers.filter(volunteer => volunteer.user_id === auth.user.id).length;
+      const isAlreadyVolunteer = request.volunteers.filter(volunteer => volunteer.user.id === auth.user.id).length;
       if (
         request.volunteers.length >= 5 ||
         request.status === 'fulfilled' ||

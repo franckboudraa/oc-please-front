@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { Button, Form, Header, Comment, Grid } from 'semantic-ui-react';
+import { Button, Confirm, Form, Header, Comment, Grid } from 'semantic-ui-react';
 import RequestMessagesItem from './RequestMessagesItem';
-import { submitVolunteerMessage } from '../../../actions';
+import { submitVolunteerMessage, fulfillRequest } from '../../../actions';
 
 class RequestMessagesList extends PureComponent {
   constructor(props) {
@@ -13,15 +13,26 @@ class RequestMessagesList extends PureComponent {
     this.state = {
       form: {
         content: ''
-      }
+      },
+      modalDeclineOpen: false,
+      modalAcceptOpen: false
     };
   }
+  handleDecline = id => {
+    this.setState({ modalDeclineOpen: false });
+    //this.props.deleteRequest(id);
+  };
+
+  handleAccept = (request, volunteerID) => {
+    this.setState({ modalAcceptOpen: false });
+    this.props.fulfillRequest(request, volunteerID, 2);
+  };
 
   handleChange = (e, { name, value }) => this.setState({ form: { ...this.state.form, [name]: value } });
 
   render() {
-    const { volunteer, requests: { msg } } = this.props;
-    const { form } = this.state;
+    const { volunteer, requests: { msg, request } } = this.props;
+    const { form, modalAcceptOpen, modalDeclineOpen } = this.state;
     return (
       <Grid>
         <Grid.Row>
@@ -46,6 +57,8 @@ class RequestMessagesList extends PureComponent {
               icon="checkmark"
               color="green"
               className="my-1"
+              disabled={request.status === 'fulfilled'}
+              onClick={() => this.setState({ modalAcceptOpen: true })}
             />
             <Button
               fluid
@@ -55,6 +68,8 @@ class RequestMessagesList extends PureComponent {
               icon="cancel"
               color="red"
               className="my-1"
+              disabled={request.status === 'fulfilled'}
+              onClick={() => this.setState({ modalDeclineOpen: true })}
             />
             <Button
               fluid
@@ -69,6 +84,24 @@ class RequestMessagesList extends PureComponent {
             />
           </Grid.Column>
         </Grid.Row>
+        <Confirm
+          open={modalDeclineOpen}
+          onCancel={() => this.setState({ modalDeclineOpen: false })}
+          onConfirm={() => this.handleDecline(request.id)}
+          header="Decline a helper"
+          content={`Are you sure you want to decline help request from "${volunteer.user.first_name} ${
+            volunteer.user.last_name
+          }" ?`}
+        />
+        <Confirm
+          open={modalAcceptOpen}
+          onCancel={() => this.setState({ modalAcceptOpen: false })}
+          onConfirm={() => this.handleAccept(request, volunteer.id)}
+          header="Accept a help request"
+          content={`Are you sure you want to accept help request from "${volunteer.user.first_name} ${
+            volunteer.user.last_name
+          }" ?`}
+        />
       </Grid>
     );
   }
@@ -78,4 +111,4 @@ function mapStateToProps({ requests }) {
   return { requests };
 }
 
-export default connect(mapStateToProps, { submitVolunteerMessage })(RequestMessagesList);
+export default connect(mapStateToProps, { submitVolunteerMessage, fulfillRequest })(RequestMessagesList);

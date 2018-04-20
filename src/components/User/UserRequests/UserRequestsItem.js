@@ -3,23 +3,37 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { deleteRequest } from '../../../actions';
+import { deleteRequest, resetRequest } from '../../../actions';
 import { Button, Confirm, Header, Icon, Table } from 'semantic-ui-react';
 
 class UserRequestsItem extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { modalOpen: false };
+    this.state = { modalDeleteOpen: false, modalResetOpen: false };
   }
 
   handleDelete = id => {
-    this.setState({ modalOpen: false });
+    this.setState({ modalDeleteOpen: false });
     this.props.deleteRequest(id);
+  };
+
+  handleReset = id => {
+    this.setState({ modalResetOpen: false });
+    this.props.resetRequest(id);
   };
 
   render() {
     const { request } = this.props;
-    const { modalOpen } = this.state;
+    const { modalDeleteOpen, modalResetOpen } = this.state;
+
+    let lastVolunteerInHours = 0;
+
+    if (request.volunteers.length) {
+      const lastVolunteer = moment(request.volunteers[request.volunteers.length - 1].created_at);
+      const now = moment();
+      lastVolunteerInHours = now.diff(lastVolunteer, 'hours');
+    }
+
     return (
       <Table.Row>
         <Table.Cell>
@@ -46,14 +60,29 @@ class UserRequestsItem extends PureComponent {
         <Table.Cell className="capitalize">{request.status}</Table.Cell>
         <Table.Cell>
           <Button.Group>
-            <Button basic as={Link} to={`/r/${request.id}/edit`} color="green" icon="checkmark" />
+            <Button
+              basic
+              onClick={() => this.setState({ modalResetOpen: true })}
+              color="green"
+              icon="refresh"
+              disabled={!(request.volunteers.length === 5 && lastVolunteerInHours > 24)}
+            />
             <Button basic as={Link} to={`/r/${request.id}/volunteers`} color="blue" icon="users" />
-            <Button basic onClick={() => this.setState({ modalOpen: true })} color="red" icon="delete" />
+            <Button basic onClick={() => this.setState({ modalDeleteOpen: true })} color="red" icon="delete" />
           </Button.Group>
           <Confirm
-            open={modalOpen}
-            onCancel={() => this.setState({ modalOpen: false })}
+            open={modalDeleteOpen}
+            onCancel={() => this.setState({ modalDeleteOpen: false })}
             onConfirm={() => this.handleDelete(request.id)}
+            header="Delete a request"
+            content={`Are you sure you want to delete your request "${request.title}" ?`}
+          />
+          <Confirm
+            open={modalResetOpen}
+            onCancel={() => this.setState({ modalResetOpen: false })}
+            onConfirm={() => this.handleReset(request.id)}
+            header="Republish a request"
+            content={`Are you sure you want to republish your request for "${request.title}" ?`}
           />
         </Table.Cell>
       </Table.Row>
@@ -61,4 +90,4 @@ class UserRequestsItem extends PureComponent {
   }
 }
 
-export default connect(null, { deleteRequest })(UserRequestsItem);
+export default connect(null, { deleteRequest, resetRequest })(UserRequestsItem);

@@ -29,7 +29,7 @@ class Map extends PureComponent {
           defaultZoom={zoom}
           onChange={this.onBoundsChange}
         >
-          {markers.map(marker => <MapMarker {...marker} key={marker.id} />)}
+          {markers.map(marker => marker.volunteers.length < 5 && <MapMarker {...marker} key={marker.id} />)}
         </GoogleMapReact>
       </div>
     ) : (
