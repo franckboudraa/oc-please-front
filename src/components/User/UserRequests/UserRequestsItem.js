@@ -67,8 +67,21 @@ class UserRequestsItem extends PureComponent {
               icon="refresh"
               disabled={!(request.volunteers.length === 5 && lastVolunteerInHours > 24)}
             />
-            <Button basic as={Link} to={`/r/${request.id}/volunteers`} color="blue" icon="users" />
-            <Button basic onClick={() => this.setState({ modalDeleteOpen: true })} color="red" icon="delete" />
+            <Button
+              basic
+              as={Link}
+              to={`/r/${request.id}/volunteers`}
+              color="blue"
+              icon="users"
+              disabled={!request.volunteers.length}
+            />
+            <Button
+              basic
+              onClick={() => this.setState({ modalDeleteOpen: true })}
+              color="red"
+              icon="delete"
+              disabled={request.status === 'fulfilled'}
+            />
           </Button.Group>
           <Confirm
             open={modalDeleteOpen}

@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { Button, Confirm, Form, Header, Comment, Grid } from 'semantic-ui-react';
 import RequestMessagesItem from './RequestMessagesItem';
-import { submitVolunteerMessage, fulfillRequest } from '../../../actions';
+import { submitVolunteerMessage, fulfillRequest, declineHelpRequest } from '../../../actions';
 
 class RequestMessagesList extends PureComponent {
   constructor(props) {
@@ -18,9 +18,9 @@ class RequestMessagesList extends PureComponent {
       modalAcceptOpen: false
     };
   }
-  handleDecline = id => {
+  handleDecline = (requestID, volunteerID) => {
     this.setState({ modalDeclineOpen: false });
-    //this.props.deleteRequest(id);
+    this.props.declineHelpRequest(requestID, volunteerID);
   };
 
   handleAccept = (request, volunteerID) => {
@@ -87,7 +87,7 @@ class RequestMessagesList extends PureComponent {
         <Confirm
           open={modalDeclineOpen}
           onCancel={() => this.setState({ modalDeclineOpen: false })}
-          onConfirm={() => this.handleDecline(request.id)}
+          onConfirm={() => this.handleDecline(request.id, volunteer.id)}
           header="Decline a helper"
           content={`Are you sure you want to decline help request from "${volunteer.user.first_name} ${
             volunteer.user.last_name
@@ -111,4 +111,6 @@ function mapStateToProps({ requests }) {
   return { requests };
 }
 
-export default connect(mapStateToProps, { submitVolunteerMessage, fulfillRequest })(RequestMessagesList);
+export default connect(mapStateToProps, { submitVolunteerMessage, fulfillRequest, declineHelpRequest })(
+  RequestMessagesList
+);

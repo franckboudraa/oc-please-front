@@ -4,7 +4,7 @@ import RequestMessagesList from './RequestMessagesList';
 
 const RequestMessages = ({ volunteers }) => {
   const panes = [];
-
+  console.log(volunteers);
   volunteers.map(volunteer => {
     let iconName;
     switch (volunteer.status) {

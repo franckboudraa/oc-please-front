@@ -272,10 +272,27 @@ export const resetRequest = id => async (dispatch, getState) => {
   // action
 };
 
-export const acceptHelpRequest = (volunteerID, requestID) => async (dispatch, getState) => {
-  // action
-};
+export const declineHelpRequest = (requestID, volunteerID) => async (dispatch, getState) => {
+  const { auth: { token } } = await getState();
 
-export const declineHelpRequest = (volunteerID, requestID) => async (dispatch, getState) => {
-  // action
+  try {
+    const req = await x.patch(
+      `/requests/${requestID}/volunteers/${volunteerID}`,
+      { type: 'decline' },
+      {
+        headers: { Authorization: token }
+      }
+    );
+
+    if (req.status === 200) {
+      dispatch(fetchVolunteersForRequest(requestID));
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while updating request'
+    });
+  }
 };
