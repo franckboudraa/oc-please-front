@@ -272,8 +272,25 @@ export const fulfillRequest = (request, volunteerID = 0, dispatchType) => async 
   }
 };
 
-export const resetRequest = id => async (dispatch, getState) => {
-  // action
+export const resetRequest = requestID => async (dispatch, getState) => {
+  const { auth: { user, token } } = await getState();
+
+  try {
+    const req = await x.delete(`/requests/${requestID}/reset`, {
+      headers: { Authorization: token }
+    });
+
+    if (req.status === 200) {
+      dispatch(fetchUserRequests(user.id));
+    } else {
+      throw new Error('http_code_error');
+    }
+  } catch (error) {
+    dispatch({
+      type: REQ_ERROR,
+      error_message: 'Error while republishing request.'
+    });
+  }
 };
 
 export const declineHelpRequest = (requestID, volunteerID) => async (dispatch, getState) => {

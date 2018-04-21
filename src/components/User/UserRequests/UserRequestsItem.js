@@ -17,9 +17,9 @@ class UserRequestsItem extends PureComponent {
     this.props.deleteRequest(id);
   };
 
-  handleReset = id => {
+  handleReset = requestID => {
     this.setState({ modalResetOpen: false });
-    this.props.resetRequest(id);
+    this.props.resetRequest(requestID);
   };
 
   render() {
