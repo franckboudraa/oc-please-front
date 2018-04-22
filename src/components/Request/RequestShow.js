@@ -33,9 +33,9 @@ class RequestShow extends PureComponent {
             <div style={{ width: '100%', height: '300px' }}>
               <StaticMap center={{ lat: request.lat, lng: request.lng }} marker={request} zoom={12} />
             </div>
-            <Grid container className="mt-3" divided>
+            <Grid container doubling className="mt-3" divided>
               <Grid.Row columns={2}>
-                <Grid.Column width={12}>
+                <Grid.Column largeScreen={12} computer={12} tablet={10} mobile={16}>
                   <Header as="h1">
                     {request.title}
                     <Header.Subheader>{request.address}</Header.Subheader>
@@ -60,7 +60,7 @@ class RequestShow extends PureComponent {
                     </div>
                   </Message>
                 </Grid.Column>
-                <Grid.Column width={4} textAlign="center">
+                <Grid.Column largeScreen={4} computer={4} tablet={6} mobile={16} textAlign="center">
                   {request.status === 'fulfilled' ? (
                     <Button disabled fluid>
                       Fulfilled request

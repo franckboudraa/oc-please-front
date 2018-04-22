@@ -4,7 +4,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { deleteRequest, resetRequest } from '../../../actions';
-import { Button, Confirm, Header, Icon, Table } from 'semantic-ui-react';
+import { Button, Confirm, Header, Icon, Responsive, Table } from 'semantic-ui-react';
 
 class UserRequestsItem extends PureComponent {
   constructor(props) {
@@ -36,27 +36,33 @@ class UserRequestsItem extends PureComponent {
 
     return (
       <Table.Row>
-        <Table.Cell>
+        <Responsive as={Table.Cell} minWidth={767}>
           <Icon.Group size="big">
             <Icon name="marker" color={request.reqtype === 'task' ? 'purple' : 'pink'} />
             <Icon corner className="marker-text">
               {request.reqtype === 'task' ? 'S' : 'M'}
             </Icon>
           </Icon.Group>
-        </Table.Cell>
+        </Responsive>
         <Table.Cell>
           <Header as="h4" image>
             <Header.Content>
               <Link to={`/r/${request.id}/${_.kebabCase(request.title)}`}>{request.title}</Link>
-              <Header.Subheader>
+              <Responsive as={Header.Subheader} {...Responsive.onlyComputer}>
                 <address>{request.address}</address>
-              </Header.Subheader>
+              </Responsive>
             </Header.Content>
           </Header>
         </Table.Cell>
-        <Table.Cell>{_.truncate(request.description)}</Table.Cell>
-        <Table.Cell>{request.volunteers.length}</Table.Cell>
-        <Table.Cell>{moment(request.created_at).format('LL')}</Table.Cell>
+        <Responsive as={Table.Cell} {...Responsive.onlyComputer}>
+          {_.truncate(request.description)}
+        </Responsive>
+        <Responsive as={Table.Cell} minWidth={767}>
+          {request.volunteers.length}
+        </Responsive>
+        <Responsive as={Table.Cell} minWidth={767}>
+          {moment(request.created_at).format('LL')}
+        </Responsive>
         <Table.Cell className="capitalize">{request.status}</Table.Cell>
         <Table.Cell>
           <Button.Group>

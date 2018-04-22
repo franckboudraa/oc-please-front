@@ -33,8 +33,8 @@ class RequestNew extends PureComponent {
     }
     return (
       <Grid centered container>
-        <Grid.Row>
-          <Grid.Column width={8}>
+        <Grid.Row columns={1}>
+          <Grid.Column mobile={16} tablet={12} computer={10} largeScreen={8} widescreen={8}>
             <Header as="h1" color="green" textAlign="center" className="mt-4 rem-3 mb-4">
               Create a request
             </Header>

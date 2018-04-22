@@ -40,9 +40,9 @@ class Homepage extends PureComponent {
         <Header as="h1" className="homepage-jumbotron my-5 light-blur">
           Become the hero of your neighborhood.
         </Header>
-        <Grid stackable>
+        <Grid doubling>
           <Grid.Row centered>
-            <Grid.Column width={8}>
+            <Grid.Column mobile={16} tablet={12} computer={10} largeScreen={8} widescreen={8}>
               <RegisterForm />
             </Grid.Column>
           </Grid.Row>

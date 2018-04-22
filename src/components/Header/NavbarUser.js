@@ -10,7 +10,7 @@ class NavbarUser extends Component {
   render() {
     const { auth: { user: { id, first_name, last_name, email } } } = this.props;
     return (
-      <Menu borderless color="green" inverted attached>
+      <Menu fluid stackable borderless color="green" inverted attached>
         <Container>
           <Menu.Item>
             <Link to="/" className="brand">

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { Message, Table } from 'semantic-ui-react';
+import { Message, Responsive, Table } from 'semantic-ui-react';
 import UserRequestsItem from './UserRequestsItem';
 
 class UserRequestsList extends PureComponent {
@@ -37,21 +37,29 @@ class UserRequestsList extends PureComponent {
     const { requests } = this.props;
     const { column, direction } = this.state;
     return requests.length ? (
-      <Table basic="very" celled collapsing selectable sortable>
+      <Table basic="very" celled collapsing selectable sortable unstackable>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell />
+            <Responsive as={Table.HeaderCell} minWidth={767} />
             <Table.HeaderCell sorted={column === 'title' ? direction : null} onClick={this.handleSort('title')}>
               Title
             </Table.HeaderCell>
-            <Table.HeaderCell>Description</Table.HeaderCell>
-            <Table.HeaderCell>Helpers</Table.HeaderCell>
-            <Table.HeaderCell
+            <Responsive as={Table.HeaderCell} {...Responsive.onlyComputer}>
+              Description
+            </Responsive>
+
+            <Responsive as={Table.HeaderCell} minWidth={767}>
+              Helpers
+            </Responsive>
+            <Responsive
+              as={Table.HeaderCell}
               sorted={column === 'created_at' ? direction : null}
               onClick={this.handleSort('created_at')}
+              minWidth={767}
             >
               Created at
-            </Table.HeaderCell>
+            </Responsive>
+
             <Table.HeaderCell sorted={column === 'status' ? direction : null} onClick={this.handleSort('status')}>
               Status
             </Table.HeaderCell>

@@ -56,3 +56,7 @@
   opacity: 1;
 }
 /* Semantic UI modal fix https://github.com/Semantic-Org/Semantic-UI-React/issues/2550#issuecomment-379253505 */
+
+.text-black {
+  color: #000 !important;
+}

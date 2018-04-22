@@ -24,7 +24,15 @@ class NavbarGuest extends PureComponent {
     const { form: { email, password } } = this.state;
     const { loading, error } = this.props.auth;
     return (
-      <Menu borderless color="green" className={this.props.url === '/' ? 'transparent' : ''} inverted attached>
+      <Menu
+        fluid
+        stackable
+        borderless
+        color="green"
+        className={this.props.url === '/' ? 'transparent' : ''}
+        attached
+        inverted
+      >
         <Container>
           <Menu.Item>
             <a href="/" className="brand">
@@ -32,7 +40,7 @@ class NavbarGuest extends PureComponent {
             </a>
           </Menu.Item>
           <Menu.Menu position="right">
-            <Menu.Item className="p-0 mx-0 mb-0 mt-3">
+            <Menu.Item>
               <Form loading={loading} error={error} onSubmit={this.handleSubmit}>
                 <Form.Group widths="equal" inline>
                   <Form.Input
