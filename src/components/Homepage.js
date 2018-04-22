@@ -19,7 +19,7 @@ class Homepage extends PureComponent {
     this.setState({ timer });
     document.body.style.minHeight = '100%';
     document.body.style.height = '100%';
-    document.body.style.background = 'url(/img/bg-home.jpg) center';
+    document.body.style.background = 'url(/img/bg-home.jpg) center center fixed';
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundSize = 'cover';
   }

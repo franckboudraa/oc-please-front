@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { getTokenFromLSThenAuthenticate } from './actions';
 
-import { Container, Loader, Message } from 'semantic-ui-react';
+import { Container, Grid, Loader, Message } from 'semantic-ui-react';
 
 import PrivateRoute from './PrivateRoute';
 import Header from './components/Header/Header';
@@ -36,33 +36,37 @@ class App extends PureComponent {
 
     return (
       <Router>
-        <div>
-          <Route path="*" component={props => <Header {...props} auth={auth} />} />
-          {auth.error && (
-            <Container>
-              <Message error>
-                <h1>An error occured</h1>Please try again.
-              </Message>
-            </Container>
-          )}
-          <Switch>
-            {auth.user && !auth.user.identity && <PrivateRoute path="*" component={UserIDUpload} auth={auth} />}
-            <Route exact path="/" component={auth.user ? Dashboard : Homepage} />
-            <Route path="/u/:id" component={props => <UserProfile {...props} auth={auth} />} />
-            <PrivateRoute path="/settings" component={UserSettings} auth={auth} />
-            <PrivateRoute path="/requests/new" component={RequestNew} auth={auth} />
-            <PrivateRoute path="/r/:id/help" component={RequestHelp} auth={auth} />
-            <PrivateRoute path="/r/:id/volunteers" component={RequestVolunteers} auth={auth} />
-            <PrivateRoute path="/r/:id/discuss" component={RequestDiscuss} auth={auth} />
-            <Route path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
+        <Grid>
+          <Grid.Row>
+            <Grid.Column>
+              <Route path="*" component={props => <Header {...props} auth={auth} />} />
+              {auth.error && (
+                <Container>
+                  <Message error>
+                    <h1>An error occured</h1>Please try again.
+                  </Message>
+                </Container>
+              )}
+              <Switch>
+                {auth.user && !auth.user.identity && <PrivateRoute path="*" component={UserIDUpload} auth={auth} />}
+                <Route exact path="/" component={auth.user ? Dashboard : Homepage} />
+                <Route path="/u/:id" component={props => <UserProfile {...props} auth={auth} />} />
+                <PrivateRoute path="/settings" component={UserSettings} auth={auth} />
+                <PrivateRoute path="/requests/new" component={RequestNew} auth={auth} />
+                <PrivateRoute path="/r/:id/help" component={RequestHelp} auth={auth} />
+                <PrivateRoute path="/r/:id/volunteers" component={RequestVolunteers} auth={auth} />
+                <PrivateRoute path="/r/:id/discuss" component={RequestDiscuss} auth={auth} />
+                <Route path="/r/:id" component={props => <RequestShow {...props} auth={auth} />} />
 
-            <PrivateRoute path="/me/requests" component={UserRequests} auth={auth} />
-            <PrivateRoute path="/me/proposals" component={UserProposals} auth={auth} />
+                <PrivateRoute path="/me/requests" component={UserRequests} auth={auth} />
+                <PrivateRoute path="/me/proposals" component={UserProposals} auth={auth} />
 
-            <Route component={NotFound} />
-          </Switch>
-          <Route path="*" component={props => <Footer {...props} auth={auth} />} />
-        </div>
+                <Route component={NotFound} />
+              </Switch>
+              <Route path="*" component={props => <Footer {...props} auth={auth} />} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Router>
     );
   }
