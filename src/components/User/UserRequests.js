@@ -12,8 +12,10 @@ class UserRequests extends PureComponent {
   }
 
   render() {
-    const { success, requests } = this.props.requests;
-    return (
+    const { success, requests, loading } = this.props.requests;
+    return loading ? (
+      <Loader active />
+    ) : (
       <Grid container>
         <Grid.Row>
           <Grid.Column>
