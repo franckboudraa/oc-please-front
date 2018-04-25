@@ -34,9 +34,9 @@ class RequestMessagesList extends PureComponent {
     const { volunteer, requests: { msg, request }, auth } = this.props;
     const { form, modalAcceptOpen, modalDeclineOpen } = this.state;
     return (
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={12}>
+      <Grid stackable centered>
+        <Grid.Row columns={2}>
+          <Grid.Column width={10}>
             <Header as="h4">Messages</Header>
             <Comment.Group>
               {volunteer.messages.map(message => <RequestMessagesItem key={message.id} message={message} />)}

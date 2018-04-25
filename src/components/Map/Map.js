@@ -22,7 +22,7 @@ class Map extends PureComponent {
   render() {
     const { center, zoom, error, markers } = this.props.map;
     return !error && center ? (
-      <div style={{ height: '95vh', width: '100%' }}>
+      <div style={{ height: '93vh', width: '100vw' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: GMAP_KEY }}
           defaultCenter={center}

@@ -38,7 +38,7 @@ class App extends PureComponent {
       <Router>
         <Grid>
           <Grid.Row columns={1} className="pb-0">
-            <Grid.Column width={16} className="pr-0">
+            <Grid.Column width={16}>
               <Route path="*" component={props => <Header {...props} auth={auth} />} />
               {auth.error && (
                 <Container>
